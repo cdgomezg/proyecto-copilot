@@ -36,9 +36,31 @@
                 </div>
     </header>
     <main>
-                <section class="hero">
-                        <img src="assets/images/architecture-hero.svg" alt="Arquitectura hero">
-                        <div class="intro">
+                        <section class="hero">
+                                <!-- inline SVG hero to avoid external fetch issues -->
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" style="max-width:420px;border-radius:10px;">
+            <defs>
+                <linearGradient id="g" x1="0" x2="1">
+                    <stop offset="0" stop-color="#6a11cb"/>
+                    <stop offset="1" stop-color="#2575fc"/>
+                </linearGradient>
+            </defs>
+            <rect width="1200" height="300" fill="url(#g)"/>
+            <g fill="#fff" font-family="Segoe UI, Arial, sans-serif">
+                <text x="60" y="110" font-size="48" font-weight="700">Arquitectura de Software</text>
+                <text x="60" y="160" font-size="20" opacity="0.9">Estructura · Componentes · Patrones · Buenas prácticas</text>
+            </g>
+            <g transform="translate(780,40)">
+                <rect x="0" y="0" width="360" height="220" rx="12" fill="#ffffff22"/>
+                <g transform="translate(30,30)" fill="#fff">
+                    <rect x="0" y="0" width="100" height="100" rx="8" fill="#ffb86b"/>
+                    <rect x="120" y="0" width="200" height="20" rx="6" fill="#fff" opacity="0.15"/>
+                    <rect x="120" y="30" width="200" height="12" rx="6" fill="#fff" opacity="0.12"/>
+                    <rect x="0" y="120" width="340" height="60" rx="8" fill="#ffffff11"/>
+                </g>
+            </g>
+        </svg>
+                                <div class="intro">
                                 <h2>Aprende a diseñar sistemas robustos y escalables</h2>
                                 <p>Un blog con ideas, estilos y patrones prácticos para arquitectos y desarrolladores interesados en la estructura del software.</p>
                                 <a class="btn" href="#posts">Ver publicaciones</a>
@@ -48,24 +70,54 @@
                 <section id="posts">
                     <h3 style="margin-top:1rem;color:var(--muted)">Publicaciones recientes</h3>
                     <div class="posts-grid">
-                        <article class="card">
-                            <a href="posts/post1.html"><img src="assets/images/post1.svg" alt="post1"></a>
+                                    <article class="card">
+                                        <a href="posts/post1.html">
+                                            <!-- inline post1 SVG -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:140px;display:block;border-radius:8px;">
+                                                <rect width="400" height="200" rx="12" fill="#2575fc"/>
+                                                <g fill="#fff" font-family="Segoe UI, Arial, sans-serif">
+                                                    <text x="20" y="46" font-size="20" font-weight="700">¿Qué es la</text>
+                                                    <text x="20" y="76" font-size="20" font-weight="700">Arquitectura</text>
+                                                    <text x="20" y="106" font-size="14">Estructura · Componentes</text>
+                                                </g>
+                                            </svg>
+                                        </a>
                             <div class="card-body">
                                 <h3><a href="posts/post1.html">¿Qué es la Arquitectura de Software?</a></h3>
                                 <p>Definición, componentes (módulos, interfaces, conectores) e importancia para la escalabilidad y mantenibilidad.</p>
                                 <div class="meta">Lectura: 4 min</div>
                             </div>
                         </article>
-                        <article class="card">
-                            <a href="posts/post2.html"><img src="assets/images/post2.svg" alt="post2"></a>
+                                    <article class="card">
+                                        <a href="posts/post2.html">
+                                            <!-- inline post2 SVG -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:140px;display:block;border-radius:8px;">
+                                                <rect width="400" height="200" rx="12" fill="#ff6b6b"/>
+                                                <g fill="#fff" font-family="Segoe UI, Arial, sans-serif">
+                                                    <text x="20" y="56" font-size="20" font-weight="700">Estilos</text>
+                                                    <text x="20" y="86" font-size="20" font-weight="700">Arquitectónicos</text>
+                                                    <text x="20" y="116" font-size="14">Monolito · Microservicios · MVC</text>
+                                                </g>
+                                            </svg>
+                                        </a>
                             <div class="card-body">
                                 <h3><a href="posts/post2.html">Estilos Arquitectónicos más utilizados</a></h3>
                                 <p>Monolito, en capas, cliente-servidor, MVC y microservicios: ventajas y desventajas.</p>
                                 <div class="meta">Lectura: 5 min</div>
                             </div>
                         </article>
-                        <article class="card">
-                            <a href="posts/post3.html"><img src="assets/images/post3.svg" alt="post3"></a>
+                                    <article class="card">
+                                        <a href="posts/post3.html">
+                                            <!-- inline post3 SVG -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:140px;display:block;border-radius:8px;">
+                                                <rect width="400" height="200" rx="12" fill="#7bffb2"/>
+                                                <g fill="#0a0a0a" font-family="Segoe UI, Arial, sans-serif">
+                                                    <text x="20" y="56" font-size="20" font-weight="700">Patrones</text>
+                                                    <text x="20" y="86" font-size="20" font-weight="700">Arquitectónicos</text>
+                                                    <text x="20" y="116" font-size="14">Clean · Hexagonal · CQRS</text>
+                                                </g>
+                                            </svg>
+                                        </a>
                             <div class="card-body">
                                 <h3><a href="posts/post3.html">Patrones Arquitectónicos Modernos</a></h3>
                                 <p>Clean Architecture, Hexagonal y CQRS: cuándo usarlos y sus beneficios.</p>
