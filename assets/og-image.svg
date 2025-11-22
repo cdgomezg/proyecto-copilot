@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0" stop-color="#6a11cb"/>
+      <stop offset="1" stop-color="#2575fc"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <g fill="#fff" font-family="Segoe UI, Arial, sans-serif">
+    <text x="80" y="220" font-size="56" font-weight="700">Blog Técnico</text>
+    <text x="80" y="290" font-size="40" font-weight="600">Arquitectura de Software — Cristian Gomez</text>
+    <text x="80" y="360" font-size="20" opacity="0.9">Estilos · Patrones · Buenas prácticas</text>
+  </g>
+</svg>
