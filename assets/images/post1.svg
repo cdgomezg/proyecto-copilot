@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+  <rect width="400" height="200" rx="12" fill="#2575fc"/>
+  <g fill="#fff" font-family="Segoe UI, Arial, sans-serif">
+    <text x="20" y="46" font-size="20" font-weight="700">¿Qué es la</text>
+    <text x="20" y="76" font-size="20" font-weight="700">Arquitectura</text>
+    <text x="20" y="106" font-size="14">Estructura · Componentes</text>
+  </g>
+</svg>

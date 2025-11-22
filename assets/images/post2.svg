@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+  <rect width="400" height="200" rx="12" fill="#ff6b6b"/>
+  <g fill="#fff" font-family="Segoe UI, Arial, sans-serif">
+    <text x="20" y="56" font-size="20" font-weight="700">Estilos</text>
+    <text x="20" y="86" font-size="20" font-weight="700">Arquitectónicos</text>
+    <text x="20" y="116" font-size="14">Monolito · Microservicios · MVC</text>
+  </g>
+</svg>
