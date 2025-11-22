@@ -4,23 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Técnico - Cristian Gomez</title>
+    <meta name="description" content="Blog técnico sobre Arquitectura de Software: estilos, patrones y buenas prácticas. Por Cristian Gomez.">
+    <meta name="theme-color" content="#2575fc">
+    <meta property="og:title" content="Blog Técnico - Cristian Gomez">
+    <meta property="og:description" content="Aprende sobre Arquitectura de Software: estilos, patrones y ejemplos prácticos.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="assets/style.css">
     <script src="assets/main.js" defer></script>
 </head>
 <body>
     <header>
-        <h1>Cristian Gomez</h1>
-        <h2>Blog Técnico: Arquitectura de Software</h2>
+                <div class="wrap">
+                    <div>
+                        <h1>Cristian Gomez</h1>
+                        <h2>Blog Técnico: Arquitectura de Software</h2>
+                    </div>
+                    <nav>
+                        <a href="#">Inicio</a>
+                        <a href="#posts">Publicaciones</a>
+                    </nav>
+                </div>
     </header>
     <main>
-        <section class="posts-list">
-            <h3>Publicaciones recientes</h3>
-            <ul>
-                <li><a href="posts/post1.html">¿Qué es la Arquitectura de Software?</a></li>
-                <li><a href="posts/post2.html">Estilos Arquitectónicos más utilizados</a></li>
-                <li><a href="posts/post3.html">Patrones Arquitectónicos Modernos</a></li>
-            </ul>
-        </section>
+                <section class="hero">
+                        <img src="assets/images/architecture-hero.svg" alt="Arquitectura hero">
+                        <div class="intro">
+                                <h2>Aprende a diseñar sistemas robustos y escalables</h2>
+                                <p>Un blog con ideas, estilos y patrones prácticos para arquitectos y desarrolladores interesados en la estructura del software.</p>
+                                <a class="btn" href="#posts">Ver publicaciones</a>
+                        </div>
+                </section>
+
+                <section id="posts">
+                    <h3 style="margin-top:1rem;color:var(--muted)">Publicaciones recientes</h3>
+                    <div class="posts-grid">
+                        <article class="card">
+                            <a href="posts/post1.html"><img src="assets/images/post1.svg" alt="post1"></a>
+                            <div class="card-body">
+                                <h3><a href="posts/post1.html">¿Qué es la Arquitectura de Software?</a></h3>
+                                <p>Definición, componentes (módulos, interfaces, conectores) e importancia para la escalabilidad y mantenibilidad.</p>
+                                <div class="meta">Lectura: 4 min</div>
+                            </div>
+                        </article>
+                        <article class="card">
+                            <a href="posts/post2.html"><img src="assets/images/post2.svg" alt="post2"></a>
+                            <div class="card-body">
+                                <h3><a href="posts/post2.html">Estilos Arquitectónicos más utilizados</a></h3>
+                                <p>Monolito, en capas, cliente-servidor, MVC y microservicios: ventajas y desventajas.</p>
+                                <div class="meta">Lectura: 5 min</div>
+                            </div>
+                        </article>
+                        <article class="card">
+                            <a href="posts/post3.html"><img src="assets/images/post3.svg" alt="post3"></a>
+                            <div class="card-body">
+                                <h3><a href="posts/post3.html">Patrones Arquitectónicos Modernos</a></h3>
+                                <p>Clean Architecture, Hexagonal y CQRS: cuándo usarlos y sus beneficios.</p>
+                                <div class="meta">Lectura: 6 min</div>
+                            </div>
+                        </article>
+                    </div>
+                </section>
     </main>
     <footer>
         <p>&copy; 2025 Cristian Gomez. Todos los derechos reservados.</p>
