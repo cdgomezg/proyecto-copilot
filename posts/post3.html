@@ -42,71 +42,29 @@
     </g>
 </svg>
             <section>
-                <h3>Definición de patrón arquitectónico</h3>
-                <p>Un patrón arquitectónico es una solución reutilizable a un problema común en el diseño de la arquitectura de software, proporcionando una estructura probada y buenas prácticas.</p>
+                <h3>Patrones en una frase</h3>
+                <p>Los patrones estructuran soluciones probadas para problemas repetidos: reducen ambigüedad y mejoran mantenibilidad.</p>
             </section>
             <section>
-                <h3>Patrón Clean Architecture</h3>
-                <ul>
-                    <li><strong>Capas:</strong> Entidades, casos de uso, interfaces, frameworks.</li>
-                    <li><strong>Propósito:</strong> Separar la lógica de negocio de los detalles de infraestructura, facilitando pruebas y mantenibilidad.</li>
-                </ul>
+                <h3>Clean Architecture (rápido)</h3>
+                <p>Separación clara entre dominio e infraestructura — alta testabilidad y mantenimiento, mayor inicialidad en la implementación.</p>
             </section>
             <section>
-                <h3>Arquitectura Hexagonal (Puertos y Adaptadores)</h3>
-                <ul>
-                    <li>Organiza el sistema en torno a un núcleo central (dominio) y adapta las entradas/salidas mediante puertos y adaptadores.</li>
-                    <li>Permite cambiar tecnologías externas sin afectar la lógica central.</li>
-                </ul>
+                <h3>Hexagonal / Puertos y Adaptadores</h3>
+                <p>Centro de dominio aislado; las integraciones se atornillan mediante adaptadores. Ideal para intercambiar infra sin romper lógica.</p>
             </section>
             <section>
-                <h3>Patrón CQRS (Command Query Responsibility Segregation)</h3>
-                <ul>
-                    <li>Separa las operaciones de lectura (queries) y escritura (commands) en modelos independientes.</li>
-                    <li>Mejora el rendimiento y la escalabilidad en sistemas complejos.</li>
-                </ul>
+                <h3>CQRS (comandos/consultas)</h3>
+                <p>Separar lectura y escritura para optimizar cada una. Útil en sistemas con alto tráfico y requisitos de rendimiento.</p>
             </section>
             <section>
-                <h3>Ventajas y desventajas de cada patrón</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Patrón</th>
-                            <th>Ventajas</th>
-                            <th>Desventajas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Clean Architecture</td>
-                            <td>Alta mantenibilidad, pruebas sencillas</td>
-                            <td>Puede ser complejo de implementar</td>
-                        </tr>
-                        <tr>
-                            <td>Hexagonal</td>
-                            <td>Flexibilidad ante cambios tecnológicos</td>
-                            <td>Curva de aprendizaje inicial</td>
-                        </tr>
-                        <tr>
-                            <td>CQRS</td>
-                            <td>Escalabilidad, optimización de consultas</td>
-                            <td>Mayor complejidad y sincronización</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h3>Cómo decidir</h3>
+                <p>Evalúa coste de complejidad vs beneficio: patrones potentes pero no gratuitos; implanta gradualmente.</p>
             </section>
-            <section>
-                <h3>Ejemplos de aplicación en proyectos modernos</h3>
-                <ul>
-                    <li>Clean Architecture en aplicaciones empresariales con alta demanda de mantenibilidad.</li>
-                    <li>Hexagonal en sistemas que requieren integración con múltiples tecnologías externas.</li>
-                    <li>CQRS en plataformas de comercio electrónico con alto volumen de transacciones.</li>
-                </ul>
-            </section>
-            <section>
-                <h3>Conclusión general</h3>
-                <p>Cada patrón arquitectónico moderno ofrece ventajas específicas según el contexto del proyecto. La elección adecuada depende de los requisitos de escalabilidad, mantenibilidad y complejidad del sistema.</p>
-            </section>
+            <div style="margin-top:1rem">
+              <button class="like-btn" data-id="post3">❤️ <span class="like-count">0</span></button>
+              <button class="mark-read">Marcar como leído</button>
+            </div>
         </article>
     </main>
     <footer>

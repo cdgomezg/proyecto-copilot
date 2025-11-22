@@ -14,11 +14,13 @@
     <meta name="twitter:image" content="https://cdgomezg.github.io/proyecto-copilot/assets/og-image.svg">
     <meta name="theme-color" content="#2575fc">
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+    <!-- Google Font: Cormorant Garamond -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=" type="image/png">
     <link rel="apple-touch-icon" href="../assets/favicon.svg">
     <link rel="manifest" href="/proyecto-copilot/manifest.json">
-    <link rel="stylesheet" href="../assets/style.css?v=2">
-    <script src="../assets/main.js?v=2" defer></script>
+    <link rel="stylesheet" href="../assets/style.css?v=3">
+    <script src="../assets/main.js?v=3" defer></script>
 </head>
 <body>
     <header>
@@ -40,45 +42,48 @@
     </g>
 </svg>
             <section>
-                <h3>Definición de Arquitectura de Software</h3>
-                <p>La arquitectura de software es la estructura fundamental de un sistema, compuesta por sus componentes, las relaciones entre ellos y las propiedades que estos componentes y relaciones poseen. Define cómo se organiza y comunica el software a nivel alto.</p>
+                <h3>Qué es (resumen minimal)</h3>
+                <p>La arquitectura de software es el esqueleto del sistema: cómo se organizan las piezas y cómo se comunican. No es código: es decisión. Diseñarla bien ahorra costes y dolores a futuro.</p>
             </section>
             <section>
-                <h3>Objetivo principal de la arquitectura en un sistema</h3>
-                <p>El objetivo principal es garantizar que el sistema cumpla con los requisitos funcionales y no funcionales, facilitando la escalabilidad, mantenibilidad y rendimiento.</p>
+                <h3>Propósito clave</h3>
+                <p>Garantizar comportamiento y calidad a escala: que el sistema funcione, sea mantenible y crezca con orden.</p>
             </section>
             <section>
-                <h3>Componentes básicos de una arquitectura</h3>
+                <h3>Componentes (en una línea)</h3>
                 <ul>
-                    <li><strong>Módulos:</strong> Unidades funcionales independientes que encapsulan una parte del sistema.</li>
-                    <li><strong>Interfaces:</strong> Definen cómo los módulos interactúan entre sí.</li>
-                    <li><strong>Conectores:</strong> Mecanismos que permiten la comunicación entre módulos, como APIs, buses o protocolos.</li>
+                    <li><strong>Módulos</strong> — unidades con responsabilidad clara.</li>
+                    <li><strong>Interfaces</strong> — contratos entre módulos.</li>
+                    <li><strong>Conectores</strong> — protocolos, APIs y buses que enlazan todo.</li>
                 </ul>
             </section>
             <section>
-                <h3>Importancia dentro del desarrollo de software</h3>
+                <h3>Por qué importa</h3>
                 <ul>
-                    <li><strong>Escalabilidad:</strong> Permite que el sistema crezca de manera eficiente.</li>
-                    <li><strong>Mantenibilidad:</strong> Facilita la actualización y corrección de errores.</li>
-                    <li><strong>Rendimiento:</strong> Optimiza el uso de recursos y la respuesta del sistema.</li>
+                    <li>Escalabilidad: crecer sin romperlo todo.</li>
+                    <li>Mantenibilidad: cambios localizados, riesgos controlados.</li>
+                    <li>Rendimiento: decisiones arquitectónicas afectan latencia y coste.</li>
                 </ul>
             </section>
             <section>
-                <h3>Roles y responsabilidades de un Arquitecto de Software</h3>
-                <p>El arquitecto de software diseña la estructura del sistema, toma decisiones tecnológicas clave, asegura la calidad y comunica la visión arquitectónica al equipo de desarrollo.</p>
+                <h3>El rol del arquitecto (versión breve)</h3>
+                <p>Define visión, selecciona patrones y guía al equipo: traduce requisitos a decisiones técnicas.</p>
             </section>
             <section>
-                <h3>Ejemplos básicos de arquitecturas en proyectos reales</h3>
+                <h3>Ejemplos rápidos</h3>
                 <ul>
-                    <li>Aplicaciones web con arquitectura en capas (frontend, backend, base de datos).</li>
-                    <li>Sistemas de microservicios para plataformas escalables.</li>
-                    <li>Aplicaciones móviles con arquitectura cliente-servidor.</li>
+                    <li>Sitio web clásico: capas (UI → negocio → datos).</li>
+                    <li>Plataforma a escala: microservicios con API gateway.</li>
                 </ul>
             </section>
             <section>
-                <h3>Conclusión</h3>
-                <p>La arquitectura de software es esencial para el éxito de cualquier proyecto, ya que define la base sobre la cual se construye y evoluciona el sistema. Una buena arquitectura facilita el crecimiento, la adaptación y la calidad del software.</p>
+                <h3>Reflexión</h3>
+                <p>Una buena arquitectura es una inversión: acelera el desarrollo y reduce riesgos. Piensa en ella desde el principio.</p>
             </section>
+            <div style="margin-top:1rem">
+              <button class="like-btn" data-id="post1">❤️ <span class="like-count">0</span></button>
+              <button class="mark-read">Marcar como leído</button>
+            </div>
         </article>
     </main>
     <footer>
