@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrones Arquitectónicos Modernos - Cristian Gomez</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <script src="../assets/main.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Cristian Gomez</h1>
+        <nav>
+            <a href="../index.html">Inicio</a>
+        </nav>
+    </header>
+    <main>
+        <article>
+            <h2>Patrones Arquitectónicos Modernos</h2>
+            <section>
+                <h3>Definición de patrón arquitectónico</h3>
+                <p>Un patrón arquitectónico es una solución reutilizable a un problema común en el diseño de la arquitectura de software, proporcionando una estructura probada y buenas prácticas.</p>
+            </section>
+            <section>
+                <h3>Patrón Clean Architecture</h3>
+                <ul>
+                    <li><strong>Capas:</strong> Entidades, casos de uso, interfaces, frameworks.</li>
+                    <li><strong>Propósito:</strong> Separar la lógica de negocio de los detalles de infraestructura, facilitando pruebas y mantenibilidad.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Arquitectura Hexagonal (Puertos y Adaptadores)</h3>
+                <ul>
+                    <li>Organiza el sistema en torno a un núcleo central (dominio) y adapta las entradas/salidas mediante puertos y adaptadores.</li>
+                    <li>Permite cambiar tecnologías externas sin afectar la lógica central.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Patrón CQRS (Command Query Responsibility Segregation)</h3>
+                <ul>
+                    <li>Separa las operaciones de lectura (queries) y escritura (commands) en modelos independientes.</li>
+                    <li>Mejora el rendimiento y la escalabilidad en sistemas complejos.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Ventajas y desventajas de cada patrón</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Patrón</th>
+                            <th>Ventajas</th>
+                            <th>Desventajas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Clean Architecture</td>
+                            <td>Alta mantenibilidad, pruebas sencillas</td>
+                            <td>Puede ser complejo de implementar</td>
+                        </tr>
+                        <tr>
+                            <td>Hexagonal</td>
+                            <td>Flexibilidad ante cambios tecnológicos</td>
+                            <td>Curva de aprendizaje inicial</td>
+                        </tr>
+                        <tr>
+                            <td>CQRS</td>
+                            <td>Escalabilidad, optimización de consultas</td>
+                            <td>Mayor complejidad y sincronización</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section>
+                <h3>Ejemplos de aplicación en proyectos modernos</h3>
+                <ul>
+                    <li>Clean Architecture en aplicaciones empresariales con alta demanda de mantenibilidad.</li>
+                    <li>Hexagonal en sistemas que requieren integración con múltiples tecnologías externas.</li>
+                    <li>CQRS en plataformas de comercio electrónico con alto volumen de transacciones.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Conclusión general</h3>
+                <p>Cada patrón arquitectónico moderno ofrece ventajas específicas según el contexto del proyecto. La elección adecuada depende de los requisitos de escalabilidad, mantenibilidad y complejidad del sistema.</p>
+            </section>
+        </article>
+    </main>
+    <footer>
+        <p>&copy; 2025 Cristian Gomez. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
