@@ -83,6 +83,14 @@ blockquote{border-left:3px solid rgba(37,117,252,0.9);margin:0;padding:0.6rem 1r
 .mark-read{display:inline-block;margin-left:8px;padding:0.45rem 0.7rem;border-radius:8px;background:linear-gradient(90deg,#2575fc,#6a11cb);color:#fff;border:none;cursor:pointer}
 .mark-read.done{background:linear-gradient(90deg,#1f8b3a,#2ea94a);box-shadow:0 6px 18px rgba(46,169,74,0.12)}
 
+/* tactile micro-interaction for like button */
+.like-btn.like-pop{animation:like-pop 420ms cubic-bezier(.2,.9,.2,1)}
+@keyframes like-pop{
+  0%{transform:scale(1);box-shadow:0 6px 18px rgba(37,117,252,0.06)}
+  40%{transform:scale(1.12) rotate(-6deg);box-shadow:0 18px 36px rgba(37,117,252,0.18)}
+  100%{transform:scale(1);box-shadow:0 6px 18px rgba(37,117,252,0.06)}
+}
+
 /* header points badge */
 .points-badge{display:inline-block;background:rgba(255,255,255,0.06);padding:0.35rem 0.6rem;border-radius:999px;margin-left:12px;font-weight:700}
 

@@ -33,6 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
             count += 1;
             localStorage.setItem(key, String(count));
             if(countEl) countEl.textContent = count;
+            // small tactile pop animation
+            btn.classList.add('like-pop');
+            setTimeout(()=> btn.classList.remove('like-pop'), 500);
             animateConfetti(btn);
         });
     });
