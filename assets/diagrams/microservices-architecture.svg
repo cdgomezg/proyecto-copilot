@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 550" style="background:#f5f7fa">
+  <defs>
+    <linearGradient id="service-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0099cc;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="api-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b7a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff8899;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="700" height="550" fill="#f5f7fa"/>
+  
+  <!-- Title -->
+  <text x="350" y="40" font-size="28" font-weight="bold" fill="#1a2b3d" text-anchor="middle" font-family="Arial, sans-serif">Arquitectura de Microservicios</text>
+  
+  <!-- API Gateway -->
+  <rect x="200" y="80" width="300" height="60" rx="8" fill="url(#api-grad)" filter="url(#shadow)"/>
+  <text x="350" y="115" font-size="18" font-weight="bold" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">API Gateway</text>
+  
+  <!-- Connection lines from API Gateway -->
+  <line x1="180" y1="150" x2="100" y2="220" stroke="#1a2b3d" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="350" y1="150" x2="350" y2="220" stroke="#1a2b3d" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="520" y1="150" x2="600" y2="220" stroke="#1a2b3d" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="280" y1="150" x2="200" y2="280" stroke="#1a2b3d" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="420" y1="150" x2="500" y2="280" stroke="#1a2b3d" stroke-width="2" stroke-dasharray="5,5"/>
+  
+  <!-- Microservices -->
+  <g id="service1">
+    <rect x="30" y="220" width="140" height="100" rx="8" fill="url(#service-grad)" filter="url(#shadow)"/>
+    <text x="100" y="250" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">User Service</text>
+    <text x="100" y="280" font-size="11" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">Auth · Profile</text>
+    <text x="100" y="300" font-size="11" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">SQL DB</text>
+  </g>
+  
+  <g id="service2">
+    <rect x="280" y="220" width="140" height="100" rx="8" fill="url(#service-grad)" filter="url(#shadow)"/>
+    <text x="350" y="250" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">Order Service</text>
+    <text x="350" y="280" font-size="11" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">Purchases</text>
+    <text x="350" y="300" font-size="11" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">NoSQL DB</text>
+  </g>
+  
+  <g id="service3">
+    <rect x="530" y="220" width="140" height="100" rx="8" fill="url(#service-grad)" filter="url(#shadow)"/>
+    <text x="600" y="250" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">Product Service</text>
+    <text x="600" y="280" font-size="11" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">Catalog</text>
+    <text x="600" y="300" font-size="11" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">SQL DB</text>
+  </g>
+  
+  <g id="service4">
+    <rect x="130" y="380" width="140" height="100" rx="8" fill="url(#service-grad)" filter="url(#shadow)"/>
+    <text x="200" y="410" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">Payment Service</text>
+    <text x="200" y="440" font-size="11" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">Transactions</text>
+    <text x="200" y="460" font-size="11" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">SQL DB</text>
+  </g>
+  
+  <g id="service5">
+    <rect x="430" y="380" width="140" height="100" rx="8" fill="url(#service-grad)" filter="url(#shadow)"/>
+    <text x="500" y="410" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">Notification</text>
+    <text x="500" y="440" font-size="11" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">Email · SMS</text>
+    <text x="500" y="460" font-size="11" fill="#fff" text-anchor="middle" font-family="Arial, sans-serif">Message Queue</text>
+  </g>
+  
+  <!-- Service Discovery -->
+  <rect x="250" y="500" width="200" height="40" rx="6" fill="#1a2b3d" filter="url(#shadow)"/>
+  <text x="350" y="525" font-size="14" font-weight="bold" fill="#00d4d4" text-anchor="middle" font-family="Arial, sans-serif">Service Discovery & Registry</text>
+</svg>

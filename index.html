@@ -21,8 +21,8 @@
     <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=" type="image/png">
     <link rel="apple-touch-icon" href="assets/favicon.svg">
     <link rel="manifest" href="/proyecto-copilot/manifest.json">
-    <link rel="stylesheet" href="assets/style.css?v=4">
-    <script src="assets/main.js?v=4" defer></script>
+    <link rel="stylesheet" href="assets/style.css?v=5">
+    <script src="assets/main.js?v=5" defer></script>
 </head>
 <body>
         <div id="reading-progress-wrap"><div id="reading-progress"></div></div>
@@ -30,7 +30,7 @@
                 <div class="wrap">
                     <div>
                         <h1>Cristian Gomez <span class="points-badge">Puntos: <span id="points-count">0</span></span></h1>
-                        <h2>Blog Técnico: Arquitectura de Software — minimal, Y2K & tactile</h2>
+                        <h2>Blog Técnico: Arquitectura de Software — Diseño Profesional y Responsivo</h2>
                     </div>
                     <nav>
                         <a href="#">Inicio</a>
@@ -40,28 +40,37 @@
     </header>
     <main>
                         <section class="hero">
-                                <!-- inline SVG hero to avoid external fetch issues -->
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" style="max-width:420px;border-radius:10px;">
+                                <!-- Modern professional hero SVG -->
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" style="max-width:420px;border-radius:12px;background:linear-gradient(135deg,#0d1b2a,#1a2f45);">
             <defs>
-                <linearGradient id="g" x1="0" x2="1">
-                    <stop offset="0" stop-color="#6a11cb"/>
-                    <stop offset="1" stop-color="#2575fc"/>
+                <linearGradient id="hero-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#00d4d4;stop-opacity:0.9" />
+                    <stop offset="100%" style="stop-color:#0099cc;stop-opacity:0.9" />
                 </linearGradient>
             </defs>
-            <rect width="1200" height="300" fill="url(#g)"/>
-            <g fill="#fff" font-family="Segoe UI, Arial, sans-serif">
-                <text x="60" y="110" font-size="48" font-weight="700">Arquitectura de Software</text>
-                <text x="60" y="160" font-size="20" opacity="0.9">Estructura · Componentes · Patrones · Buenas prácticas</text>
+            <!-- Background grid pattern -->
+            <g stroke="rgba(0,212,212,0.1)" stroke-width="1">
+                <line x1="0" y1="0" x2="400" y2="300"/>
+                <line x1="100" y1="0" x2="0" y2="300"/>
+                <line x1="200" y1="0" x2="100" y2="300"/>
+                <line x1="300" y1="0" x2="200" y2="300"/>
+                <line x1="400" y1="0" x2="300" y2="300"/>
             </g>
-            <g transform="translate(780,40)">
-                <rect x="0" y="0" width="360" height="220" rx="12" fill="#ffffff22"/>
-                <g transform="translate(30,30)" fill="#fff">
-                    <rect x="0" y="0" width="100" height="100" rx="8" fill="#ffb86b"/>
-                    <rect x="120" y="0" width="200" height="20" rx="6" fill="#fff" opacity="0.15"/>
-                    <rect x="120" y="30" width="200" height="12" rx="6" fill="#fff" opacity="0.12"/>
-                    <rect x="0" y="120" width="340" height="60" rx="8" fill="#ffffff11"/>
-                </g>
-            </g>
+            <!-- Main architecture circle -->
+            <circle cx="200" cy="100" r="50" fill="url(#hero-grad)" opacity="0.8"/>
+            <circle cx="200" cy="100" r="45" fill="none" stroke="#00d4d4" stroke-width="2" opacity="0.5"/>
+            <circle cx="200" cy="100" r="40" fill="none" stroke="#0099cc" stroke-width="1" opacity="0.3"/>
+            <!-- Satellites -->
+            <circle cx="120" cy="160" r="20" fill="rgba(255,107,122,0.7)"/>
+            <circle cx="280" cy="160" r="20" fill="rgba(255,165,0,0.7)"/>
+            <circle cx="200" cy="220" r="20" fill="rgba(0,153,204,0.7)"/>
+            <!-- Connecting lines -->
+            <line x1="170" y1="120" x2="120" y2="150" stroke="#00d4d4" stroke-width="2" opacity="0.6"/>
+            <line x1="230" y1="120" x2="280" y2="150" stroke="#0099cc" stroke-width="2" opacity="0.6"/>
+            <line x1="200" y1="145" x2="200" y2="205" stroke="#ff6b7a" stroke-width="2" opacity="0.6"/>
+            <!-- Text -->
+            <text x="200" y="260" font-size="18" font-weight="bold" fill="#00d4d4" text-anchor="middle" font-family="Arial, sans-serif">Sistemas bien diseñados</text>
+            <text x="200" y="285" font-size="12" fill="#b0c4de" text-anchor="middle" font-family="Arial, sans-serif">estructurados · escalables · mantenibles</text>
         </svg>
                                 <div class="intro">
                                 <h2>Aprende a diseñar sistemas robustos y escalables</h2>
@@ -87,7 +96,7 @@
                                         </a>
                             <div class="card-body">
                                 <h3><a href="posts/post1.html">¿Qué es la Arquitectura de Software?</a></h3>
-                                <p>Definición, componentes (módulos, interfaces, conectores) e importancia para la escalabilidad y mantenibilidad.</p>
+                                <p>Fundamentos, componentes esenciales y por qué una arquitectura bien diseñada acelera tu desarrollo.</p>
                                 <div class="meta">Lectura: 4 min</div>
                             </div>
                         </article>
@@ -105,7 +114,7 @@
                                         </a>
                             <div class="card-body">
                                 <h3><a href="posts/post2.html">Estilos Arquitectónicos más utilizados</a></h3>
-                                <p>Monolito, en capas, cliente-servidor, MVC y microservicios: ventajas y desventajas.</p>
+                                <p>Comparativa visual de Monolito, Capas, MVC y Microservicios. Elige el estilo adecuado para tu proyecto.</p>
                                 <div class="meta">Lectura: 5 min</div>
                             </div>
                         </article>
@@ -123,7 +132,7 @@
                                         </a>
                             <div class="card-body">
                                 <h3><a href="posts/post3.html">Patrones Arquitectónicos Modernos</a></h3>
-                                <p>Clean Architecture, Hexagonal y CQRS: cuándo usarlos y sus beneficios.</p>
+                                <p>Clean, Hexagonal y CQRS: patrones probados para construcción de sistemas escalables y mantenibles.</p>
                                 <div class="meta">Lectura: 6 min</div>
                             </div>
                         </article>
