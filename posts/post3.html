@@ -63,6 +63,49 @@
                     <li><strong>Frameworks &amp; Drivers:</strong> Web, DB, UI, librerías</li>
                 </ul>
 
+                <p style="margin-top:1.5rem"><strong>Visualización — Capas de Clean Architecture:</strong></p>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" style="width:100%;max-width:600px;height:auto;margin:1rem 0;border-radius:8px;">
+                    <defs>
+                        <linearGradient id="cleanGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d4d4;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0099cc;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="cleanGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ff6b7a;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff4757;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="cleanGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ffa500;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff8c00;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="cleanGrad4" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#a8dadc;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#7bffb2;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <text x="300" y="25" font-size="18" font-weight="700" text-anchor="middle" fill="#0d1b2a">Clean Architecture - Capas</text>
+                    <!-- Outer Layer -->
+                    <rect x="50" y="60" width="500" height="300" rx="8" fill="url(#cleanGrad4)" opacity="0.3" stroke="#0d1b2a" stroke-width="2"/>
+                    <text x="60" y="85" font-size="12" font-weight="600" fill="#0d1b2a">Frameworks &amp; Drivers (Web, DB, UI)</text>
+                    <!-- Interface Adapters -->
+                    <rect x="70" y="110" width="460" height="80" rx="6" fill="url(#cleanGrad3)" stroke="#0d1b2a" stroke-width="2"/>
+                    <text x="300" y="135" font-size="13" font-weight="700" text-anchor="middle" fill="#fff">Interface Adapters</text>
+                    <text x="300" y="155" font-size="11" text-anchor="middle" fill="#fff">Controllers • Presenters • Gateways</text>
+                    <!-- Use Cases -->
+                    <rect x="90" y="210" width="420" height="70" rx="6" fill="url(#cleanGrad2)" stroke="#0d1b2a" stroke-width="2"/>
+                    <text x="300" y="235" font-size="13" font-weight="700" text-anchor="middle" fill="#fff">Use Cases / Application Logic</text>
+                    <text x="300" y="255" font-size="11" text-anchor="middle" fill="#fff">Orquestación de entidades</text>
+                    <!-- Entities (Core) -->
+                    <rect x="110" y="310" width="380" height="60" rx="6" fill="url(#cleanGrad1)" stroke="#0d1b2a" stroke-width="2"/>
+                    <text x="300" y="332" font-size="13" font-weight="700" text-anchor="middle" fill="#fff">Entities / Domain Model (Core)</text>
+                    <text x="300" y="352" font-size="11" text-anchor="middle" fill="#fff">Lógica pura sin dependencias</text>
+                    <!-- Arrows showing dependency direction -->
+                    <g fill="none" stroke="#0d1b2a" stroke-width="2" marker-end="url(#arrowhead)" opacity="0.6">
+                        <path d="M 300,200 L 300,185"/>
+                        <path d="M 300,280 L 300,295"/>
+                    </g>
+                </svg>
+
                 <p style="margin-top:1.5rem"><strong>Ejemplo práctico — Servicio de Suscripciones:</strong></p>
                 <pre style="background:#f5f5f5;padding:1rem;border-radius:8px;overflow-x:auto;margin-top:0.5rem;"><code>// Entities (dominio puro, sin dependencias)
 class Subscription {
@@ -142,6 +185,52 @@ class SubscriptionController {
                     <li><strong>Adaptadores Primarios:</strong> HTTP API, CLI, UI</li>
                     <li><strong>Adaptadores Secundarios:</strong> Base de datos, APIs externas, colas de mensajes</li>
                 </ul>
+
+                <p style="margin-top:1.5rem"><strong>Visualización — Hexagonal Architecture:</strong></p>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" style="width:100%;max-width:600px;height:auto;margin:1rem 0;border-radius:8px;">
+                    <defs>
+                        <linearGradient id="hexGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d4d4;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0099cc;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="hexGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ff6b7a;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff4757;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <text x="300" y="25" font-size="18" font-weight="700" text-anchor="middle" fill="#0d1b2a">Hexagonal - Puertos &amp; Adaptadores</text>
+                    <!-- Hexagon core -->
+                    <polygon points="300,100 380,150 380,250 300,300 220,250 220,150" fill="url(#hexGrad1)" stroke="#0d1b2a" stroke-width="2"/>
+                    <text x="300" y="200" font-size="13" font-weight="700" text-anchor="middle" fill="#fff">Domain Core</text>
+                    <text x="300" y="218" font-size="10" text-anchor="middle" fill="#fff">Lógica Pura</text>
+                    <!-- Ports (circles on hexagon) -->
+                    <circle cx="300" cy="100" r="12" fill="#ffa500" stroke="#0d1b2a" stroke-width="1.5"/>
+                    <text x="300" y="128" font-size="9" text-anchor="middle" fill="#0d1b2a">Port 1</text>
+                    <circle cx="380" cy="150" r="12" fill="#ffa500" stroke="#0d1b2a" stroke-width="1.5"/>
+                    <text x="415" y="155" font-size="9" fill="#0d1b2a">Port 2</text>
+                    <circle cx="380" cy="250" r="12" fill="#ffa500" stroke="#0d1b2a" stroke-width="1.5"/>
+                    <text x="415" y="255" font-size="9" fill="#0d1b2a">Port 3</text>
+                    <circle cx="300" cy="300" r="12" fill="#ffa500" stroke="#0d1b2a" stroke-width="1.5"/>
+                    <text x="300" y="330" font-size="9" text-anchor="middle" fill="#0d1b2a">Port 4</text>
+                    <circle cx="220" cy="250" r="12" fill="#ffa500" stroke="#0d1b2a" stroke-width="1.5"/>
+                    <text x="175" y="255" font-size="9" fill="#0d1b2a">Port 5</text>
+                    <circle cx="220" cy="150" r="12" fill="#ffa500" stroke="#0d1b2a" stroke-width="1.5"/>
+                    <text x="175" y="155" font-size="9" fill="#0d1b2a">Port 6</text>
+                    <!-- Adapters -->
+                    <rect x="480" y="130" width="90" height="50" rx="4" fill="url(#hexGrad2)" stroke="#0d1b2a" stroke-width="1.5"/>
+                    <text x="525" y="145" font-size="10" font-weight="600" text-anchor="middle" fill="#fff">API HTTP</text>
+                    <text x="525" y="160" font-size="8" text-anchor="middle" fill="#fff">Adapter</text>
+                    <rect x="480" y="250" width="90" height="50" rx="4" fill="url(#hexGrad2)" stroke="#0d1b2a" stroke-width="1.5"/>
+                    <text x="525" y="265" font-size="10" font-weight="600" text-anchor="middle" fill="#fff">DB</text>
+                    <text x="525" y="280" font-size="8" text-anchor="middle" fill="#fff">Adapter</text>
+                    <rect x="30" y="130" width="90" height="50" rx="4" fill="url(#hexGrad2)" stroke="#0d1b2a" stroke-width="1.5"/>
+                    <text x="75" y="145" font-size="10" font-weight="600" text-anchor="middle" fill="#fff">Email</text>
+                    <text x="75" y="160" font-size="8" text-anchor="middle" fill="#fff">Adapter</text>
+                    <!-- Connector lines -->
+                    <line x1="380" y1="150" x2="480" y2="155" stroke="#0d1b2a" stroke-width="1.5" stroke-dasharray="5,5" opacity="0.6"/>
+                    <line x1="380" y1="250" x2="480" y2="275" stroke="#0d1b2a" stroke-width="1.5" stroke-dasharray="5,5" opacity="0.6"/>
+                    <line x1="220" y1="150" x2="120" y2="155" stroke="#0d1b2a" stroke-width="1.5" stroke-dasharray="5,5" opacity="0.6"/>
+                </svg>
 
                 <p style="margin-top:1.5rem"><strong>Ejemplo práctico — Sistema de Notificaciones:</strong></p>
                 <pre style="background:#f5f5f5;padding:1rem;border-radius:8px;overflow-x:auto;margin-top:0.5rem;"><code>// Core Domain (hexágono)
@@ -227,6 +316,83 @@ class TwilioSmsAdapter extends SmsPort {
                     <li><strong>Proyección:</strong> Listeners actualizan BD de lectura optimizada (Elasticsearch, Redis, snapshot)</li>
                     <li><strong>Query:</strong> Usuario lee desde BD de lectura → instantáneo</li>
                 </ul>
+
+                <p style="margin-top:1.5rem"><strong>Visualización — CQRS (Command Query Responsibility Segregation):</strong></p>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 350" style="width:100%;max-width:700px;height:auto;margin:1rem 0;border-radius:8px;">
+                    <defs>
+                        <linearGradient id="cqrsGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ff6b7a;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff4757;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="cqrsGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d4d4;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0099cc;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="cqrsGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ffa500;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff8c00;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <text x="350" y="25" font-size="18" font-weight="700" text-anchor="middle" fill="#0d1b2a">CQRS - Lectura vs Escritura</text>
+                    <!-- Left side: Write Path -->
+                    <g>
+                        <rect x="20" y="60" width="140" height="60" rx="6" fill="url(#cqrsGrad1)" stroke="#0d1b2a" stroke-width="2"/>
+                        <text x="90" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="#fff">User Action</text>
+                        <text x="90" y="100" font-size="9" text-anchor="middle" fill="#fff">(Escribe)</text>
+                        
+                        <path d="M 160,90 L 200,90" stroke="#0d1b2a" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <rect x="200" y="60" width="120" height="60" rx="6" fill="url(#cqrsGrad1)" stroke="#0d1b2a" stroke-width="2"/>
+                        <text x="260" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="#fff">Command</text>
+                        <text x="260" y="100" font-size="9" text-anchor="middle" fill="#fff">Validar</text>
+                        
+                        <path d="M 320,90 L 360,90" stroke="#0d1b2a" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <rect x="360" y="60" width="120" height="60" rx="6" fill="url(#cqrsGrad3)" stroke="#0d1b2a" stroke-width="2"/>
+                        <text x="420" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="#fff">Write DB</text>
+                        <text x="420" y="100" font-size="9" text-anchor="middle" fill="#fff">(Principal)</text>
+                        
+                        <path d="M 480,90 L 520,90" stroke="#0d1b2a" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <rect x="520" y="60" width="140" height="60" rx="6" fill="url(#cqrsGrad3)" stroke="#0d1b2a" stroke-width="2"/>
+                        <text x="590" y="82" font-size="12" font-weight="700" text-anchor="middle" fill="#fff">Event Bus</text>
+                        <text x="590" y="100" font-size="9" text-anchor="middle" fill="#fff">(Publicar)</text>
+                    </g>
+                    
+                    <!-- Event projection to Read DB -->
+                    <path d="M 590,120 L 590,160" stroke="#0d1b2a" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="610" y="140" font-size="10" fill="#0d1b2a">Proyección</text>
+                    
+                    <!-- Right side: Read Path -->
+                    <g>
+                        <rect x="520" y="160" width="140" height="60" rx="6" fill="url(#cqrsGrad2)" stroke="#0d1b2a" stroke-width="2"/>
+                        <text x="590" y="182" font-size="12" font-weight="700" text-anchor="middle" fill="#fff">Read DB</text>
+                        <text x="590" y="200" font-size="9" text-anchor="middle" fill="#fff">(Elasticsearch)</text>
+                        
+                        <path d="M 520,190 L 480,190" stroke="#0d1b2a" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <rect x="360" y="160" width="120" height="60" rx="6" fill="url(#cqrsGrad2)" stroke="#0d1b2a" stroke-width="2"/>
+                        <text x="420" y="182" font-size="12" font-weight="700" text-anchor="middle" fill="#fff">Query</text>
+                        <text x="420" y="200" font-size="9" text-anchor="middle" fill="#fff">(Rápido)</text>
+                        
+                        <path d="M 360,190 L 320,190" stroke="#0d1b2a" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <rect x="200" y="160" width="120" height="60" rx="6" fill="url(#cqrsGrad2)" stroke="#0d1b2a" stroke-width="2"/>
+                        <text x="260" y="182" font-size="12" font-weight="700" text-anchor="middle" fill="#fff">API Query</text>
+                        <text x="260" y="200" font-size="9" text-anchor="middle" fill="#fff">(Lee)</text>
+                        
+                        <path d="M 200,190 L 160,190" stroke="#0d1b2a" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <rect x="20" y="160" width="140" height="60" rx="6" fill="url(#cqrsGrad2)" stroke="#0d1b2a" stroke-width="2"/>
+                        <text x="90" y="182" font-size="12" font-weight="700" text-anchor="middle" fill="#fff">User View</text>
+                        <text x="90" y="200" font-size="9" text-anchor="middle" fill="#fff">(Instantáneo)</text>
+                    </g>
+                    
+                    <!-- Legend -->
+                    <rect x="20" y="280" width="600" height="50" rx="4" fill="#f9f9f9" stroke="#ddd" stroke-width="1"/>
+                    <text x="30" y="298" font-size="11" font-weight="600" fill="#0d1b2a">💡 Ventaja CQRS:</text>
+                    <text x="30" y="315" font-size="10" fill="#0d1b2a">Writes optimizados para consistencia; Reads desde cache denormalizado (Elasticsearch) = rendimiento extremo</text>
+                </svg>
 
                 <p style="margin-top:1.5rem"><strong>Ejemplo práctico — E-commerce con millones de visualizaciones:</strong></p>
                 <pre style="background:#f5f5f5;padding:1rem;border-radius:8px;overflow-x:auto;margin-top:0.5rem;"><code>// Command Model (Escritura)
