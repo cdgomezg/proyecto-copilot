@@ -19,8 +19,8 @@
     <link rel="manifest" href="/proyecto-copilot/manifest.json">
     <!-- Google Font for elegant headings -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/style.css?v=6">
-    <script src="../assets/main.js?v=6" defer></script>
+    <link rel="stylesheet" href="../assets/style.css?v=7">
+    <script src="../assets/main.js?v=7" defer></script>
 </head>
 <body>
     <header>
@@ -42,24 +42,416 @@
     </g>
 </svg>
             <section>
-                <h3>Patrones en una frase</h3>
-                <p>Los patrones estructuran soluciones probadas para problemas repetidos: reducen ambigüedad y mejoran mantenibilidad.</p>
+                <h3>¿Por qué los patrones importan?</h3>
+                <p>Los patrones arquitectónicos modernos resuelven problemas complejos que emergen en sistemas grandes: separación de responsabilidades, testabilidad, escalabilidad y mantenimiento de largo plazo. No son caprichos académicos; son respuestas pragmáticas a desafíos reales del desarrollo empresarial.</p>
+                <p style="margin-top:1rem"><strong>Coste vs Beneficio:</strong> Cada patrón introduce complejidad inicial (onboarding, tooling, overhead). La decisión correcta depende de:</p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li><strong>Tamaño del equipo:</strong> ¿Puedo coordinar 50+ personas sin conflictos?</li>
+                    <li><strong>Requisitos de rendimiento:</strong> ¿Necesito 1M de requests/seg o 1K?</li>
+                    <li><strong>Velocidad vs mantenibilidad:</strong> ¿MVP en 2 meses o producto de 5 años?</li>
+                </ul>
             </section>
+
             <section>
-                <h3>Clean Architecture (rápido)</h3>
-                <p>Separación clara entre dominio e infraestructura — alta testabilidad y mantenimiento, mayor inicialidad en la implementación.</p>
+                <h3>Clean Architecture</h3>
+                <p><strong>Concepto:</strong> Aislar la lógica de negocio (dominio) del framework, base de datos, UI y sistemas externos. Dependencias siempre apuntan hacia adentro.</p>
+                <p style="margin-top:1rem"><strong>Estructura de capas (de dentro a fuera):</strong></p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li><strong>Entities:</strong> Objetos core del negocio sin dependencias externas</li>
+                    <li><strong>Use Cases:</strong> Lógica de aplicación, orquestación de entidades</li>
+                    <li><strong>Interface Adapters:</strong> Controladores, presentadores, gateways</li>
+                    <li><strong>Frameworks &amp; Drivers:</strong> Web, DB, UI, librerías</li>
+                </ul>
+
+                <p style="margin-top:1.5rem"><strong>Ejemplo práctico — Servicio de Suscripciones:</strong></p>
+                <pre style="background:#f5f5f5;padding:1rem;border-radius:8px;overflow-x:auto;margin-top:0.5rem;"><code>// Entities (dominio puro, sin dependencias)
+class Subscription {
+    constructor(userId, plan) {
+        this.userId = userId;
+        this.plan = plan;
+        this.createdAt = new Date();
+    }
+    
+    isActive() {
+        return this.plan !== 'cancelled';
+    }
+    
+    upgradeTo(newPlan) {
+        this.plan = newPlan;
+        return true;
+    }
+}
+
+// Use Case (lógica de aplicación)
+class CreateSubscriptionUseCase {
+    constructor(subscriptionRepository, paymentGateway) {
+        this.repo = subscriptionRepository;
+        this.payment = paymentGateway;
+    }
+    
+    execute(userId, planType) {
+        const sub = new Subscription(userId, planType);
+        const charged = this.payment.charge(userId, planType);
+        if (charged) {
+            return this.repo.save(sub);
+        }
+        throw new Error('Payment failed');
+    }
+}
+
+// Interface Adapter (Controller)
+class SubscriptionController {
+    constructor(createSubUseCase) {
+        this.useCase = createSubUseCase;
+    }
+    
+    async handlePost(req, res) {
+        try {
+            const sub = this.useCase.execute(req.user.id, req.body.plan);
+            res.json({ success: true, subscription: sub });
+        } catch (e) {
+            res.status(402).json({ error: e.message });
+        }
+    }
+}</code></pre>
+
+                <p style="margin-top:1rem"><strong>Ventajas:</strong></p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li>✅ Testabilidad extrema: lógica sin framework</li>
+                    <li>✅ Flexible: cambiar DB o UI sin tocar dominio</li>
+                    <li>✅ Escalabilidad mental: código claro, responsabilidades obvias</li>
+                </ul>
+
+                <p style="margin-top:1rem"><strong>Desventajas:</strong></p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li>❌ Overhead inicial: 30%+ más clases y archivos</li>
+                    <li>❌ Curva de aprendizaje: no es intuitivo para juniors</li>
+                    <li>❌ Para MVPs puede ser excesivo</li>
+                </ul>
+
+                <p style="margin-top:1rem"><strong>Empresas que la usan:</strong> Netflix (core recommendation engine), Uber (ride matching logic), Airbnb (booking system), ThoughtWorks (advocadores originales)</p>
             </section>
+
             <section>
-                <h3>Hexagonal / Puertos y Adaptadores</h3>
-                <p>Centro de dominio aislado; las integraciones se atornillan mediante adaptadores. Ideal para intercambiar infra sin romper lógica.</p>
+                <h3>Hexagonal Architecture (Puertos y Adaptadores)</h3>
+                <p><strong>Concepto:</strong> El corazón (core domain) es un hexágono. Las integraciones externas se plugean como adaptadores en los puertos. Cualquier cambio de infraestructura no toca el negocio.</p>
+                <p style="margin-top:1rem"><strong>Componentes:</strong></p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li><strong>Domain/Core:</strong> Lógica pura, sin conocimiento del mundo exterior</li>
+                    <li><strong>Puertos:</strong> Interfaces que define el core (ej: PaymentPort, EmailPort)</li>
+                    <li><strong>Adaptadores Primarios:</strong> HTTP API, CLI, UI</li>
+                    <li><strong>Adaptadores Secundarios:</strong> Base de datos, APIs externas, colas de mensajes</li>
+                </ul>
+
+                <p style="margin-top:1.5rem"><strong>Ejemplo práctico — Sistema de Notificaciones:</strong></p>
+                <pre style="background:#f5f5f5;padding:1rem;border-radius:8px;overflow-x:auto;margin-top:0.5rem;"><code>// Core Domain (hexágono)
+class NotificationService {
+    constructor(emailPort, smsPort, logPort) {
+        this.email = emailPort;
+        this.sms = smsPort;
+        this.log = logPort;
+    }
+    
+    sendAlert(user, message) {
+        this.log.record(`Alert sent to user ${user.id}`);
+        
+        if (user.preferEmail) {
+            return this.email.send(user.email, message);
+        } else {
+            return this.sms.send(user.phone, message);
+        }
+    }
+}
+
+// Puertos (interfaces)
+class EmailPort {
+    send(email, message) { throw new Error('Not implemented'); }
+}
+
+class SmsPort {
+    send(phone, message) { throw new Error('Not implemented'); }
+}
+
+// Adaptador Primario (HTTP API)
+class NotificationController {
+    constructor(notificationService) {
+        this.service = notificationService;
+    }
+    
+    async handleAlert(req, res) {
+        const result = this.service.sendAlert(req.user, req.body.message);
+        res.json({ sent: result });
+    }
+}
+
+// Adaptador Secundario (Email via SendGrid)
+class SendGridEmailAdapter extends EmailPort {
+    send(email, message) {
+        // Integración específica con SendGrid
+        return sgMail.send({ to: email, text: message });
+    }
+}
+
+// Adaptador Secundario (SMS via Twilio)
+class TwilioSmsAdapter extends SmsPort {
+    send(phone, message) {
+        // Integración específica con Twilio
+        return twilio.messages.create({ to: phone, body: message });
+    }
+}</code></pre>
+
+                <p style="margin-top:1rem"><strong>Ventajas:</strong></p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li>✅ Máxima flexibilidad: swappear adaptadores sin recompilar</li>
+                    <li>✅ Testing real: simular adaptadores mock fácilmente</li>
+                    <li>✅ Multicanal natural: Email, SMS, Push, todo por puertos</li>
+                </ul>
+
+                <p style="margin-top:1rem"><strong>Desventajas:</strong></p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li>❌ Requiere disciplina: fácil "contaminar" el core</li>
+                    <li>❌ Número de interfaces puede explotar</li>
+                    <li>❌ Para sistemas simples, overhead injustificado</li>
+                </ul>
+
+                <p style="margin-top:1rem"><strong>Empresas que la usan:</strong> Spotify (microservicios modulares), Booking.com (adaptadores para 100+ partners), Stripe (múltiples payment gateways), LinkedIn (core + plugins)</p>
             </section>
+
             <section>
-                <h3>CQRS (comandos/consultas)</h3>
-                <p>Separar lectura y escritura para optimizar cada una. Útil en sistemas con alto tráfico y requisitos de rendimiento.</p>
+                <h3>CQRS (Command Query Responsibility Segregation)</h3>
+                <p><strong>Concepto:</strong> Separar el modelo de escritura (Command) del modelo de lectura (Query). Cada uno optimizado para su caso de uso. La lectura casi siempre es más frecuente que la escritura.</p>
+                <p style="margin-top:1rem"><strong>Flujo típico:</strong></p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li><strong>Command:</strong> Usuario escribe → validar → persistir en BD principal → disparar evento</li>
+                    <li><strong>Event:</strong> Evento propagado a listeners</li>
+                    <li><strong>Proyección:</strong> Listeners actualizan BD de lectura optimizada (Elasticsearch, Redis, snapshot)</li>
+                    <li><strong>Query:</strong> Usuario lee desde BD de lectura → instantáneo</li>
+                </ul>
+
+                <p style="margin-top:1.5rem"><strong>Ejemplo práctico — E-commerce con millones de visualizaciones:</strong></p>
+                <pre style="background:#f5f5f5;padding:1rem;border-radius:8px;overflow-x:auto;margin-top:0.5rem;"><code>// Command Model (Escritura)
+class ProductCommandService {
+    async updateInventory(productId, quantityChange) {
+        // Validar stock disponible
+        const product = await this.mainDb.getProduct(productId);
+        if (product.stock + quantityChange &lt; 0) {
+            throw new Error('Insufficient stock');
+        }
+        
+        // Persistir cambio
+        await this.mainDb.updateStock(productId, quantityChange);
+        
+        // Disparar evento
+        this.eventBus.publish('InventoryChanged', {
+            productId,
+            oldStock: product.stock,
+            newStock: product.stock + quantityChange
+        });
+        
+        return true;
+    }
+}
+
+// Event Handler (Proyección a modelo de lectura)
+class InventoryProjection {
+    constructor(elasticsearchDb) {
+        this.es = elasticsearchDb;
+        // Suscribirse a eventos
+        this.eventBus.on('InventoryChanged', this.onInventoryChanged.bind(this));
+    }
+    
+    async onInventoryChanged(event) {
+        // Actualizar índice Elasticsearch con stock actualizado
+        await this.es.index({
+            id: event.productId,
+            doc: { stock: event.newStock, updatedAt: new Date() }
+        });
+    }
+}
+
+// Query Model (Lectura)
+class ProductQueryService {
+    constructor(elasticsearchDb) {
+        this.es = elasticsearchDb;
+    }
+    
+    async getProductWithStock(productId) {
+        // Leer desde Elasticsearch (super rápido)
+        return await this.es.get(productId);
+    }
+    
+    async searchProducts(filter) {
+        // Búsqueda completa en Elasticsearch
+        return await this.es.search(filter);
+    }
+}
+
+// API Controllers
+class ProductController {
+    constructor(commandService, queryService) {
+        this.command = commandService;
+        this.query = queryService;
+    }
+    
+    // Endpoint de lectura (Query) → Elasticsearch
+    async getProduct(req, res) {
+        const product = await this.query.getProductWithStock(req.params.id);
+        res.json(product);
+    }
+    
+    // Endpoint de escritura (Command) → BD principal + eventos
+    async updateStock(req, res) {
+        await this.command.updateInventory(req.params.id, req.body.change);
+        res.json({ success: true });
+    }
+}</code></pre>
+
+                <p style="margin-top:1rem"><strong>Ventajas:</strong></p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li>✅ Rendimiento extremo en lectura: reads de Elasticsearch vs writes lentos</li>
+                    <li>✅ Escalabilidad: reads horizontal, writes en primary</li>
+                    <li>✅ Event sourcing natural: auditoría y replay de eventos gratis</li>
+                    <li>✅ Debugging: replaying events reproduce cualquier estado histórico</li>
+                </ul>
+
+                <p style="margin-top:1rem"><strong>Desventajas:</strong></p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li>❌ Complejidad enormemente aumentada: múltiples BDs, event bus, proyecciones</li>
+                    <li>❌ Consistencia eventual: read puede retornar data 100ms vieja</li>
+                    <li>❌ Operacional: monitorear múltiples sistemas</li>
+                    <li>❌ Requiere madurez del equipo: no es starter</li>
+                </ul>
+
+                <p style="margin-top:1rem"><strong>Empresas que la usan:</strong> Microsoft (arquitectura interna), Facebook (feed generation), Amazon (product catalog), Uber (driver matching), Netflix (recommendation engine)</p>
             </section>
+
             <section>
-                <h3>Cómo decidir</h3>
-                <p>Evalúa coste de complejidad vs beneficio: patrones potentes pero no gratuitos; implanta gradualmente.</p>
+                <h3>Comparación de Patrones</h3>
+                <table style="width:100%;border-collapse:collapse;margin-top:1rem;">
+                    <thead>
+                        <tr style="background:#0d1b2a;color:#fff;">
+                            <th style="padding:0.75rem;text-align:left;border:1px solid #333;">Patrón</th>
+                            <th style="padding:0.75rem;text-align:left;border:1px solid #333;">Complejidad</th>
+                            <th style="padding:0.75rem;text-align:left;border:1px solid #333;">Escalabilidad</th>
+                            <th style="padding:0.75rem;text-align:left;border:1px solid #333;">Mejor Para</th>
+                            <th style="padding:0.75rem;text-align:left;border:1px solid #333;">Curva Aprendizaje</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background:#f9f9f9;">
+                            <td style="padding:0.75rem;border:1px solid #ddd;"><strong>Clean</strong></td>
+                            <td style="padding:0.75rem;border:1px solid #ddd;">⭐⭐⭐</td>
+                            <td style="padding:0.75rem;border:1px solid #ddd;">⭐⭐⭐⭐</td>
+                            <td style="padding:0.75rem;border:1px solid #ddd;">Equipo mediano (5-20), testabilidad crítica</td>
+                            <td style="padding:0.75rem;border:1px solid #ddd;">⭐⭐⭐</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0.75rem;border:1px solid #ddd;"><strong>Hexagonal</strong></td>
+                            <td style="padding:0.75rem;border:1px solid #ddd;">⭐⭐⭐⭐</td>
+                            <td style="padding:0.75rem;border:1px solid #ddd;">⭐⭐⭐⭐⭐</td>
+                            <td style="padding:0.75rem;border:1px solid #ddd;">Multi-adapter, integraciones externas</td>
+                            <td style="padding:0.75rem;border:1px solid #ddd;">⭐⭐⭐⭐</td>
+                        </tr>
+                        <tr style="background:#f9f9f9;">
+                            <td style="padding:0.75rem;border:1px solid #ddd;"><strong>CQRS</strong></td>
+                            <td style="padding:0.75rem;border:1px solid #ddd;">⭐⭐⭐⭐⭐</td>
+                            <td style="padding:0.75rem;border:1px solid #ddd;">⭐⭐⭐⭐⭐</td>
+                            <td style="padding:0.75rem;border:1px solid #ddd;">Alta concurrencia, millones de reads</td>
+                            <td style="padding:0.75rem;border:1px solid #ddd;">⭐⭐⭐⭐⭐</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h3>Casos de Uso Reales</h3>
+                <p style="margin-top:1rem"><strong>1. Facebook — CQRS + Event Sourcing</strong></p>
+                <p>Facebook es el poster child de CQRS. La escritura de un post es rara; la lectura (feed generation, likes, comments) es constante. Usan:</p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li>Write Path: Persistir post en BD primaria, disparar evento</li>
+                    <li>Read Path: Elasticsearch con personalized feed, memcached para hot posts</li>
+                    <li>Resultado: Feed se genera en ~50ms para miles de millones de usuarios</li>
+                </ul>
+
+                <p style="margin-top:1.5rem"><strong>2. Spotify — Clean Architecture + Microservicios</strong></p>
+                <p>Spotify usa Clean Architecture para cada microservicio (recomendaciones, búsqueda, pagos). Beneficios:</p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li>Test suite masivo: cada servicio tiene 100+ tests sin tocar DB real</li>
+                    <li>Migración fluida: cambiar de PostgreSQL a Cassandra sin reescribir lógica</li>
+                    <li>Equipos independientes: cada equipo propietario de su dominio</li>
+                </ul>
+
+                <p style="margin-top:1.5rem"><strong>3. DDD (Domain-Driven Design) + Hexagonal — Enterprise de Seguros</strong></p>
+                <p>Una compañía de seguros implementó Hexagonal con Aggregate Roots (DDD). Caso de uso: "solicitar póliza".</p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li>Core: Aggregate Policy con validaciones de negocio (edad, historial, exclusiones)</li>
+                    <li>Adaptadores: API web, integraciones con proveedores de riesgo, sistemas legales</li>
+                    <li>Resultado: cambiar proveedor de riesgo es cambiar un adaptador, no reescribir lógica</li>
+                </ul>
+
+                <p style="margin-top:1.5rem"><strong>4. Uber — Clean + CQRS Parcial</strong></p>
+                <p>Uber combina Clean Architecture para ride matching (core logic) y CQRS parcial para usuario/driver discovery:</p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li>Write: Aceptar ride → persistir, disparar evento</li>
+                    <li>Read: Buscar drivers cercanos desde Elasticsearch (posiciones geoespaciales)</li>
+                    <li>Resultado: matching de rides en tiempo real para millones de usuarios</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Cómo Decidir entre Patrones</h3>
+                <p style="margin-top:1rem"><strong>Pregunta 1: ¿Cuántas personas van a trabajar en este proyecto?</strong></p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li>1-3 personas: Sin patrón sofisticado, KISS. Monolito modular.</li>
+                    <li>4-15 personas: Clean Architecture. Equipos pueden trabajar por bounded context.</li>
+                    <li>15+ personas: Hexagonal + Microservicios. Separación clara de responsabilidades.</li>
+                </ul>
+
+                <p style="margin-top:1rem"><strong>Pregunta 2: ¿Cuál es la relación write/read del sistema?</strong></p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li>50/50: Clean Architecture es suficiente.</li>
+                    <li>20 write / 80 read: Considera CQRS + event sourcing.</li>
+                    <li>1 write / 1000 read: CQRS es mandatorio. Elasticsearch + Redis.</li>
+                </ul>
+
+                <p style="margin-top:1rem"><strong>Pregunta 3: ¿Cuál es el SLA (availability requirement)?</strong></p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li>99% (1 hora downtime/mes): Clean Architecture, DB primaria, backups simples.</li>
+                    <li>99.9% (50 min downtime/mes): Hexagonal, múltiples adaptadores, failover.</li>
+                    <li>99.99% (5 min downtime/mes): CQRS, event sourcing, eventual consistency.</li>
+                </ul>
+
+                <p style="margin-top:1rem"><strong>Pregunta 4: ¿Hay presión de tiempo?</strong></p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li>MVP en 4 semanas: Monolito modular. No gastes tiempo en arquitectura elegante.</li>
+                    <li>Producto de 6 meses: Clean Architecture desde inicio.</li>
+                    <li>Sistema de 5+ años: Hexagonal + planes de migración a CQRS.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Anti-patrón: Sobreingeniería</h3>
+                <p><strong>⚠️ Trampa Común:</strong> "Usaremos Clean Architecture porque es profesional" sin justificación.</p>
+                <p style="margin-top:1rem">Un startup con 3 devs implementando CQRS + event sourcing es un suicidio. Resultado: </p>
+                <ul style="margin-top:0.5rem;padding-left:2rem;">
+                    <li>❌ Producto tardío (debes entender event streams, sagas, eventual consistency)</li>
+                    <li>❌ Bugs complejos (debuggear consistency eventual es pesadilla)</li>
+                    <li>❌ Deuda técnica: código que nadie entiende excepto el creador</li>
+                </ul>
+                <p style="margin-top:1rem"><strong>Regla de oro:</strong> La arquitectura crece con el problema. Start simple, refactor cuando duela.</p>
+            </section>
+
+            <section>
+                <h3>Recursos y Referencias</h3>
+                <ul style="margin-top:1rem;padding-left:2rem;">
+                    <li><a href="https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html" target="_blank" rel="noopener">Uncle Bob Clean Architecture Blog</a> — Explicación original por Robert C. Martin</li>
+                    <li><strong>Clean Architecture</strong> (libro) — Robert C. Martin (2017): Referencia completa con ejemplos en Java</li>
+                    <li><a href="https://alistair.cockburn.us/hexagonal-architecture/" target="_blank" rel="noopener">Hexagonal Architecture</a> — Alistair Cockburn, creador del patrón</li>
+                    <li><strong>Domain-Driven Design</strong> (libro) — Eric Evans (2003): Fundamentos para Clean + Hexagonal</li>
+                    <li><a href="https://martinfowler.com/bliki/CQRS.html" target="_blank" rel="noopener">Martin Fowler on CQRS</a> — Excelente introducción y casos de uso</li>
+                    <li><a href="https://vaughnvernon.com/" target="_blank" rel="noopener">Vaughn Vernon - Implementing Domain-Driven Design</a> — Guía práctica para DDD + Hexagonal</li>
+                    <li><strong>Building Event-Driven Microservices</strong> (libro) — Adam Bellemare: CQRS + event sourcing profundo</li>
+                </ul>
             </section>
             
             <!-- Hexagonal Architecture Diagram -->

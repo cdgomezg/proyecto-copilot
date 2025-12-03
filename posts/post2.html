@@ -19,8 +19,8 @@
     <link rel="manifest" href="/proyecto-copilot/manifest.json">
     <!-- Google Font for elegant headings -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/style.css?v=6">
-    <script src="../assets/main.js?v=6" defer></script>
+    <link rel="stylesheet" href="../assets/style.css?v=7">
+    <script src="../assets/main.js?v=7" defer></script>
 </head>
 <body>
     <header>
@@ -47,17 +47,129 @@
             </section>
             <section>
                 <h3>Resumen rápido de estilos</h3>
-                <ul>
-                    <li><strong>Monolito</strong> — simple y rápido de arrancar; escala peor en grandes equipos.</li>
-                    <li><strong>Capas (N-Capas)</strong> — separa responsabilidades; claro pero puede introducir rigidez.</li>
-                    <li><strong>Cliente-Servidor</strong> — divide responsabilidades entre cliente y servidor; depende de la red.</li>
-                    <li><strong>MVC</strong> — organiza UI/negocio/control; bueno para aplicaciones con interfaces ricas.</li>
-                    <li><strong>Microservicios</strong> — servicios independientes; gran escalabilidad a costa de complejidad operativa.</li>
-                </ul>
-            </section>
             <section>
-                <h3>Cómo elegir (regla práctica)</h3>
-                <p>Empieza simple. Usa monolito o capas para MVPs; considera microservicios cuando la organización, el tráfico y el equipo lo justifiquen.</p>
+                <h3>Los 5 Estilos Clave: Comparativa Detallada</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Estilo</th>
+                            <th>Complejidad</th>
+                            <th>Escalabilidad</th>
+                            <th>Mejor Para</th>
+                            <th>Costo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Monolito</strong></td>
+                            <td>⭐</td>
+                            <td>⭐⭐</td>
+                            <td>MVPs, startups pequeñas</td>
+                            <td>Bajo inicial, alto después</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Capas</strong></td>
+                            <td>⭐⭐</td>
+                            <td>⭐⭐⭐</td>
+                            <td>Apps medianas, equipos pequeños</td>
+                            <td>Moderado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cliente-Servidor</strong></td>
+                            <td>⭐⭐</td>
+                            <td>⭐⭐⭐⭐</td>
+                            <td>Aplicaciones con UI richclient</td>
+                            <td>Moderado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MVC</strong></td>
+                            <td>⭐⭐⭐</td>
+                            <td>⭐⭐⭐</td>
+                            <td>Web apps, frameworks (Rails, Django)</td>
+                            <td>Moderado</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Microservicios</strong></td>
+                            <td>⭐⭐⭐⭐⭐</td>
+                            <td>⭐⭐⭐⭐⭐</td>
+                            <td>Sistemas complejos, equipos grandes</td>
+                            <td>Alto (infraestructura, DevOps)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h3>1. Estilo Monolítico</h3>
+                <p><strong>Qué es:</strong> Todo el código (UI, lógica, datos) en un solo proceso.</p>
+                <pre style="background:#1a2f45;color:#00d4d4;padding:1.5rem;border-radius:8px;overflow-x:auto;"><code>MonoApp (Java/Node/Python)
+├── API endpoints
+├── Business logic
+├── Database connection
+└── UI templates</code></pre>
+                <p><strong>Ventajas:</strong> Fácil de desarrollar, deployar, debuggear. Ideal para MVP.</p>
+                <p><strong>Desventajas:</strong> Todo crece junto. Si escalas recomendaciones, escalas TODO.</p>
+                <p><strong>Empresas que lo usan:</strong> Dropbox (al inicio), Instagram (primeros años).</p>
+            </section>
+
+            <section>
+                <h3>2. Estilo en Capas (N-Capas)</h3>
+                <p><strong>Qué es:</strong> Separación horizontal: Presentation → Business → Data.</p>
+                <pre style="background:#1a2f45;color:#00d4d4;padding:1.5rem;border-radius:8px;overflow-x:auto;"><code>Presentation Layer  (Controllers, Views)
+     ↓
+Business Layer      (Services, Validators)
+     ↓
+Data Layer          (Repositories, Queries)</code></pre>
+                <p><strong>Ventajas:</strong> Responsabilidades claras, fácil mantener, teams pueden trabajar en paralelo.</p>
+                <p><strong>Desventajas:</strong> Acoplamiento horizontal (cambios propagan capas abajo).</p>
+                <p><strong>Casos reales:</strong> WordPress (con plugins), e-commerce tradicionales.</p>
+            </section>
+
+            <section>
+                <h3>3. Estilo MVC (Model-View-Controller)</h3>
+                <p><strong>Qué es:</strong> Separación de concerns: datos (Model), presentación (View), lógica (Controller).</p>
+                <pre style="background:#1a2f45;color:#00d4d4;padding:1.5rem;border-radius:8px;overflow-x:auto;"><code>User Input → Controller → Model (process) → View (render HTML)
+              ↓
+         Controller puede inyectar datos a View</code></pre>
+                <p><strong>Frameworks:</strong> Rails, Django, ASP.NET MVC, Laravel.</p>
+                <p><strong>Ventajas:</strong> Muy usado, entendible, UI desacoplada de lógica.</p>
+                <p><strong>Desventajas:</strong> Controllers pueden crecer mucho (fat controllers).</p>
+            </section>
+
+            <section>
+                <h3>4. Estilo Cliente-Servidor</h3>
+                <p><strong>Qué es:</strong> Cliente (UI/lógica) y Servidor (datos/reglas) comunicándose vía API.</p>
+                <pre style="background:#1a2f45;color:#00d4d4;padding:1.5rem;border-radius:8px;overflow-x:auto;"><code>Browser/Mobile App (UI, JS logic)
+          ↔ REST API ↔
+      Backend (Java/Node)
+          ↔ DB</code></pre>
+                <p><strong>Empresas:</strong> Gmail (SPA), Facebook, Airbnb (todo basado en APIs).</p>
+                <p><strong>Ventajas:</strong> Frontend y backend desacoplados, múltiples clientes (web, app).</p>
+                <p><strong>Desventajas:</strong> Más tráfico de red, lógica duplicada posible.</p>
+            </section>
+
+            <section>
+                <h3>5. Estilo Microservicios</h3>
+                <p><strong>Qué es:</strong> Múltiples servicios pequeños, independientes, comunicándose vía eventos/APIs.</p>
+                <pre style="background:#1a2f45;color:#00d4d4;padding:1.5rem;border-radius:8px;overflow-x:auto;"><code>API Gateway
+  ├─ User Service (Node)
+  ├─ Order Service (Java)
+  ├─ Payment Service (Go)
+  ├─ Notification Service (Python)
+  └─ Kafka (event bus)</code></pre>
+                <p><strong>Empresas:</strong> Netflix, Uber, Amazon, Spotify (todos usan).</p>
+                <p><strong>Ventajas:</strong> Equipos autónomos, escala independiente, deploy frecuente.</p>
+                <p><strong>Desventajas:</strong> Complejidad operativa (containerización, orquestación, observabilidad).</p>
+            </section>
+
+            <section>
+                <h3>Casos de Uso Reales</h3>
+                <ul>
+                    <li><strong>Facebook:</strong> Monolito → Capas → MVC. Escala con caché (Memcached) y sharding de DB.</li>
+                    <li><strong>Amazon:</strong> Monolito inicial, luego Microservicios (mandato interno 2002). Cada equipo dueño de su servicio.</li>
+                    <li><strong>Uber:</strong> MVC al inicio, migró a Microservicios cuando se escaló a 40+ países.</li>
+                    <li><strong>Twitter:</strong> Rails (MVC) al inicio, luego polyglot con Scala, Java, Go para diferentes servicios.</li>
+                </ul>
             </section>
             
             <!-- Microservices Architecture Diagram -->
@@ -67,8 +179,33 @@
             </section>
             
             <section>
-                <h3>Consejo</h3>
-                <p>Diseña para cambiar: define límites claros entre componentes y prefiera contratos (APIs) sobre acoplamientos fuertes.</p>
+                <h3>Cómo Elegir el Estilo Correcto</h3>
+                <p><strong>Preguntas a hacerse:</strong></p>
+                <ul>
+                    <li>¿Cuántos usuarios esperados en 1 año? (1K → Monolito, 1M+ → Microservicios)</li>
+                    <li>¿Cuántos equipos? (1-2 → Monolito, 10+ → Microservicios)</li>
+                    <li>¿QPS esperado? (10 → Monolito simple, 10K → necesitas escalar)</li>
+                    <li>¿Latencia crítica? (si sí, considera CQRS)</li>
+                    <li>¿Presupuesto ops? (Microservicios es caro en DevOps)</li>
+                </ul>
+                <p><strong>Regla general:</strong> Empieza simple (Monolito/Capas), migra cuando duela.</p>
+            </section>
+
+            <section>
+                <h3>Anti-patrón: Microservicios Prematuros</h3>
+                <p>El error más común: "Netflix usa Microservicios, entonces yo también." Microservicios tienen overhead: latencia de red, dificultad de debugging, dificultad de testing distribuido.</p>
+                <p><strong>Netflix empezó como Monolito</strong> y migró a Microservicios cuando realmente lo necesitó (años después, con cientos de ingenieros).</p>
+            </section>
+
+            <section>
+                <h3>Recursos y Referencias</h3>
+                <ul>
+                    <li><strong>Libro:</strong> "Microservices Patterns" (Richardson) — patrones prácticos.</li>
+                    <li><strong>Libro:</strong> "Building Microservices" (Newman) — guía de migración.</li>
+                    <li><strong>Artículo:</strong> <a href="https://martinfowler.com/microservices/" target="_blank" rel="noopener">Martin Fowler - Microservices</a> — definición estándar.</li>
+                    <li><strong>Doc:</strong> <a href="https://12factor.net/" target="_blank" rel="noopener">12 Factor App</a> — best practices para servicios escalables.</li>
+                    <li><strong>Herramientas:</strong> Docker, Kubernetes, Istio (para orquestar microservicios).</li>
+                </ul>
             </section>
             <div style="margin-top:1rem">
               <button class="like-btn" data-id="post2">❤️ <span class="like-count">0</span></button>

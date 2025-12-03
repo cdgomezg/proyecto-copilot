@@ -19,8 +19,8 @@
     <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=" type="image/png">
     <link rel="apple-touch-icon" href="../assets/favicon.svg">
     <link rel="manifest" href="/proyecto-copilot/manifest.json">
-    <link rel="stylesheet" href="../assets/style.css?v=6">
-    <script src="../assets/main.js?v=6" defer></script>
+    <link rel="stylesheet" href="../assets/style.css?v=7">
+    <script src="../assets/main.js?v=7" defer></script>
 </head>
 <body>
     <header>
@@ -50,19 +50,70 @@
                 <p>Garantizar comportamiento y calidad a escala: que el sistema funcione, sea mantenible y crezca con orden.</p>
             </section>
             <section>
-                <h3>Componentes (en una línea)</h3>
+                <h3>Componentes Fundamentales</h3>
                 <ul>
-                    <li><strong>Módulos</strong> — unidades con responsabilidad clara.</li>
-                    <li><strong>Interfaces</strong> — contratos entre módulos.</li>
-                    <li><strong>Conectores</strong> — protocolos, APIs y buses que enlazan todo.</li>
+                    <li><strong>Módulos</strong> — unidades con responsabilidad clara. Ej: servicio de autenticación, base de datos.</li>
+                    <li><strong>Interfaces</strong> — contratos explícitos entre módulos. Ej: API REST, eventos, colas de mensajes.</li>
+                    <li><strong>Conectores</strong> — mecanismos de comunicación. Ej: HTTP, gRPC, Message Queues (Kafka, RabbitMQ).</li>
+                    <li><strong>Contenedores</strong> — cómo se despliega (máquinas, contenedores Docker, serverless).</li>
                 </ul>
             </section>
+
             <section>
-                <h3>Por qué importa</h3>
+                <h3>Por qué Importa la Arquitectura</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th>Impacto Positivo</th>
+                            <th>Costo de Ignorarlo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Escalabilidad</strong></td>
+                            <td>Crecer de 1K a 1M usuarios sin rediseño</td>
+                            <td>Reescribir el sistema (meses/millones)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mantenibilidad</strong></td>
+                            <td>Cambios localizados, menor riesgo</td>
+                            <td>Cada fix rompe algo más (bug hell)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rendimiento</strong></td>
+                            <td>Control de latencia y costo de infraestructura</td>
+                            <td>Servidor de $500K/mes por mala decisión</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Resiliencia</strong></td>
+                            <td>Fallos aislados, no cascada de errores</td>
+                            <td>Outage total por problema en 1 componente</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h3>Ejemplo Práctico: Componentes de un E-commerce</h3>
+                <p><strong>Módulos típicos:</strong></p>
+                <pre style="background:#1a2f45;color:#00d4d4;padding:1.5rem;border-radius:8px;overflow-x:auto;"><code>Auth Service       → Autenticación de usuarios
+Product Service    → Catálogo de productos
+Cart Service       → Carrito de compras
+Order Service      → Procesamiento de órdenes
+Payment Service    → Procesamiento de pagos
+Notification Svc   → Emails, SMS, push
+Search Service     → Búsqueda de productos</code></pre>
+                <p><strong>Comunicación:</strong> Auth Module ← HTTP API → Product Module. Cuando se crea orden: Order Service → publica evento → Notification Service escucha y envía email.</p>
+            </section>
+
+            <section>
+                <h3>Casos de Uso Reales: Cómo Empresas Exitosas lo Hacen</h3>
                 <ul>
-                    <li>Escalabilidad: crecer sin romperlo todo.</li>
-                    <li>Mantenibilidad: cambios localizados, riesgos controlados.</li>
-                    <li>Rendimiento: decisiones arquitectónicas afectan latencia y coste.</li>
+                    <li><strong>Netflix</strong> — Microservicios: cada característica (recomendaciones, streaming, UI) es independiente. Pueden escalar solo recomendaciones sin afectar streaming.</li>
+                    <li><strong>Spotify</strong> — Arquitectura hexagonal: dominio musical aislado. Pueden cambiar BD de recomendaciones sin tocar lógica de streaming.</li>
+                    <li><strong>Airbnb</strong> — Arquitectura en capas con CQRS: lectura de búsquedas separada de escritura. Búsquedas extremadamente rápidas.</li>
+                    <li><strong>Amazon</strong> — Monolito original, luego microservicios. Decisión crítica: cada equipo dueño de su microservicio (autonomía).</li>
                 </ul>
             </section>
             
@@ -73,19 +124,41 @@
             </section>
             
             <section>
-                <h3>El rol del arquitecto (versión breve)</h3>
-                <p>Define visión, selecciona patrones y guía al equipo: traduce requisitos a decisiones técnicas.</p>
-            </section>
-            <section>
-                <h3>Ejemplos rápidos</h3>
+                <h3>El Rol del Arquitecto de Software</h3>
+                <p>Un arquitecto no solo diseña: <strong>traduce requisitos de negocio a decisiones técnicas</strong>.</p>
                 <ul>
-                    <li>Sitio web clásico: capas (UI → negocio → datos).</li>
-                    <li>Plataforma a escala: microservicios con API gateway.</li>
+                    <li><strong>Analizar requisitos</strong> — ¿Cuántos usuarios? ¿Qué latencia? ¿Presupuesto?</li>
+                    <li><strong>Seleccionar patrones</strong> — ¿Monolito o microservicios? ¿Capas o hexagonal?</li>
+                    <li><strong>Definir tecnología</strong> — ¿Node.js, Java, Python? ¿PostgreSQL o MongoDB?</li>
+                    <li><strong>Guiar al equipo</strong> — Comunicar decisiones, revisar código, ajustar sobre la marcha.</li>
                 </ul>
             </section>
+
             <section>
-                <h3>Reflexión</h3>
-                <p>Una buena arquitectura es una inversión: acelera el desarrollo y reduce riesgos. Piensa en ella desde el principio.</p>
+                <h3>Errores Comunes y Cómo Evitarlos</h3>
+                <ul>
+                    <li><strong>Micro-optimización temprana</strong> — No diseñes para 1M usuarios si hoy tienes 1K. Mantén flexibilidad.</li>
+                    <li><strong>Elegir patrón "moderno" sin justificación</strong> — Microservicios son poderosos, pero Monolito es más simple si el equipo es pequeño.</li>
+                    <li><strong>Arquitectura desalineada del negocio</strong> — Si el negocio es pequeño, arquitectura pequeña (KISS).</li>
+                    <li><strong>Falta de documentación</strong> — Diagrama decisiones, no asumas que el código es auto-evidente.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Reflexión: Inversión vs. Deuda Técnica</h3>
+                <p>Una buena arquitectura es una <strong>inversión</strong>, no un costo inicial. Te acelera en 6 meses. Una mala arquitectura es <strong>deuda técnica</strong>: pagas intereses cada día (bugs, refactoring, retrasos).</p>
+                <p><strong>Regla de oro:</strong> Diseña para cambiar fácil. Usa abstracciones (interfaces, contratos) para desacoplar decisiones técnicas de lógica de negocio.</p>
+            </section>
+
+            <section>
+                <h3>Recursos y Referencias</h3>
+                <ul>
+                    <li><strong>Libros:</strong> "Software Architecture in Practice" (Bass, Clements, Kazman) — la biblia de arquitectura.</li>
+                    <li><strong>Libros:</strong> "Building Microservices" (Newman) — guía práctica de microservicios.</li>
+                    <li><strong>Documentos:</strong> <a href="https://www.12factor.net/" target="_blank" rel="noopener">12 Factor App</a> — buenas prácticas cloud-native.</li>
+                    <li><strong>Comunidad:</strong> <a href="https://www.togaf.org/" target="_blank" rel="noopener">TOGAF</a> — marco estándar de arquitectura empresarial.</li>
+                    <li><strong>Artículos:</strong> Martin Fowler's blog sobre patrones (microservices, CQRS, event sourcing).</li>
+                </ul>
             </section>
             <div style="margin-top:1rem">
               <button class="like-btn" data-id="post1">❤️ <span class="like-count">0</span></button>

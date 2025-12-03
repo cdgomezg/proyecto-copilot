@@ -9,6 +9,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Initialize points on page load - persist across page reloads
+window.addEventListener('load', () => {
+    const pointsEl = document.getElementById('points-count');
+    if(pointsEl) {
+        const savedPoints = localStorage.getItem('site_points');
+        pointsEl.textContent = savedPoints || '0';
+    }
+});
+
 // Reading progress bar, likes and simple gamification
 document.addEventListener('DOMContentLoaded', () => {
     // Points counter in header
@@ -20,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('site_points', String(n));
         if(pointsEl) pointsEl.textContent = n;
     }
+    // Ensure points are displayed on load
     if(pointsEl) pointsEl.textContent = readPoints();
 
     // Like buttons
