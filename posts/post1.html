@@ -32,15 +32,6 @@
     <main>
         <article>
                         <h2>¿Qué es la Arquitectura de Software?</h2>
-                        <!-- inline featured SVG to avoid external load issues -->
-                        <svg class="featured" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:auto;border-radius:8px;">
-    <rect width="400" height="200" rx="12" fill="#2575fc"/>
-    <g fill="#fff" font-family="Segoe UI, Arial, sans-serif">
-        <text x="20" y="46" font-size="20" font-weight="700">¿Qué es la</text>
-        <text x="20" y="76" font-size="20" font-weight="700">Arquitectura</text>
-        <text x="20" y="106" font-size="14">Estructura · Componentes</text>
-    </g>
-</svg>
             <section>
                 <h3>Qué es (resumen minimal)</h3>
                 <p>La arquitectura de software es el esqueleto del sistema: cómo se organizan las piezas y cómo se comunican. No es código: es decisión. Diseñarla bien ahorra costes y dolores a futuro.</p>
@@ -96,14 +87,7 @@
 
             <section>
                 <h3>Ejemplo Práctico: Componentes de un E-commerce</h3>
-                <p><strong>Módulos típicos:</strong></p>
-                <pre style="background:#1a2f45;color:#00d4d4;padding:1.5rem;border-radius:8px;overflow-x:auto;"><code>Auth Service       → Autenticación de usuarios
-Product Service    → Catálogo de productos
-Cart Service       → Carrito de compras
-Order Service      → Procesamiento de órdenes
-Payment Service    → Procesamiento de pagos
-Notification Svc   → Emails, SMS, push
-Search Service     → Búsqueda de productos</code></pre>
+                <p><strong>Módulos típicos:</strong> Auth Service → Autenticación, Product Service → Catálogo, Cart Service → Carrito, Order Service → Órdenes, Payment Service → Pagos, Notification Service → Emails/SMS, Search Service → Búsqueda.</p>
                 <p><strong>Comunicación:</strong> Auth Module ← HTTP API → Product Module. Cuando se crea orden: Order Service → publica evento → Notification Service escucha y envía email.</p>
             </section>
 
@@ -115,12 +99,6 @@ Search Service     → Búsqueda de productos</code></pre>
                     <li><strong>Airbnb</strong> — Arquitectura en capas con CQRS: lectura de búsquedas separada de escritura. Búsquedas extremadamente rápidas.</li>
                     <li><strong>Amazon</strong> — Monolito original, luego microservicios. Decisión crítica: cada equipo dueño de su microservicio (autonomía).</li>
                 </ul>
-            </section>
-            
-            <!-- Layered Architecture Diagram -->
-            <section style="margin:2rem 0">
-                <h3>Ejemplo Visual: Arquitectura en Capas</h3>
-                <img src="../assets/diagrams/layered-architecture.svg" alt="Diagrama de Arquitectura en Capas" style="width:100%;max-width:600px;border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,0.25);">
             </section>
             
             <section>

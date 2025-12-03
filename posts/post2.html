@@ -32,15 +32,6 @@
     <main>
         <article>
                         <h2>Estilos Arquitectónicos más utilizados</h2>
-                        <!-- inline featured SVG for post2 -->
-                        <svg class="featured" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" style="width:100%;height:auto;border-radius:8px;">
-    <rect width="400" height="200" rx="12" fill="#ff6b6b"/>
-    <g fill="#fff" font-family="Segoe UI, Arial, sans-serif">
-        <text x="20" y="56" font-size="20" font-weight="700">Estilos</text>
-        <text x="20" y="86" font-size="20" font-weight="700">Arquitectónicos</text>
-        <text x="20" y="116" font-size="14">Monolito · Microservicios · MVC</text>
-    </g>
-</svg>
             <section>
                 <h3>Qué es (minimal)</h3>
                 <p>Los estilos arquitectónicos son guías para organizar componentes y comunicación. Elegir uno afecta mantenimiento, escala y velocidad de entrega.</p>
@@ -101,12 +92,7 @@
 
             <section>
                 <h3>1. Estilo Monolítico</h3>
-                <p><strong>Qué es:</strong> Todo el código (UI, lógica, datos) en un solo proceso.</p>
-                <pre style="background:#1a2f45;color:#00d4d4;padding:1.5rem;border-radius:8px;overflow-x:auto;"><code>MonoApp (Java/Node/Python)
-├── API endpoints
-├── Business logic
-├── Database connection
-└── UI templates</code></pre>
+                <p><strong>Qué es:</strong> Todo el código (UI, lógica, datos) en un solo proceso. MonoApp incluye API endpoints, business logic, database connection y UI templates en una única aplicación.</p>
                 <p><strong>Ventajas:</strong> Fácil de desarrollar, deployar, debuggear. Ideal para MVP.</p>
                 <p><strong>Desventajas:</strong> Todo crece junto. Si escalas recomendaciones, escalas TODO.</p>
                 <p><strong>Empresas que lo usan:</strong> Dropbox (al inicio), Instagram (primeros años).</p>
@@ -115,11 +101,7 @@
             <section>
                 <h3>2. Estilo en Capas (N-Capas)</h3>
                 <p><strong>Qué es:</strong> Separación horizontal: Presentation → Business → Data.</p>
-                <pre style="background:#1a2f45;color:#00d4d4;padding:1.5rem;border-radius:8px;overflow-x:auto;"><code>Presentation Layer  (Controllers, Views)
-     ↓
-Business Layer      (Services, Validators)
-     ↓
-Data Layer          (Repositories, Queries)</code></pre>
+                <p><strong>Capas:</strong> Presentation Layer (Controllers, Views) → Business Layer (Services, Validators) → Data Layer (Repositories, Queries).</p>
                 <p><strong>Ventajas:</strong> Responsabilidades claras, fácil mantener, teams pueden trabajar en paralelo.</p>
                 <p><strong>Desventajas:</strong> Acoplamiento horizontal (cambios propagan capas abajo).</p>
                 <p><strong>Casos reales:</strong> WordPress (con plugins), e-commerce tradicionales.</p>
@@ -127,10 +109,7 @@ Data Layer          (Repositories, Queries)</code></pre>
 
             <section>
                 <h3>3. Estilo MVC (Model-View-Controller)</h3>
-                <p><strong>Qué es:</strong> Separación de concerns: datos (Model), presentación (View), lógica (Controller).</p>
-                <pre style="background:#1a2f45;color:#00d4d4;padding:1.5rem;border-radius:8px;overflow-x:auto;"><code>User Input → Controller → Model (process) → View (render HTML)
-              ↓
-         Controller puede inyectar datos a View</code></pre>
+                <p><strong>Qué es:</strong> Separación de concerns: datos (Model), presentación (View), lógica (Controller). User Input → Controller → Model (process) → View (render HTML).</p>
                 <p><strong>Frameworks:</strong> Rails, Django, ASP.NET MVC, Laravel.</p>
                 <p><strong>Ventajas:</strong> Muy usado, entendible, UI desacoplada de lógica.</p>
                 <p><strong>Desventajas:</strong> Controllers pueden crecer mucho (fat controllers).</p>
@@ -138,11 +117,7 @@ Data Layer          (Repositories, Queries)</code></pre>
 
             <section>
                 <h3>4. Estilo Cliente-Servidor</h3>
-                <p><strong>Qué es:</strong> Cliente (UI/lógica) y Servidor (datos/reglas) comunicándose vía API.</p>
-                <pre style="background:#1a2f45;color:#00d4d4;padding:1.5rem;border-radius:8px;overflow-x:auto;"><code>Browser/Mobile App (UI, JS logic)
-          ↔ REST API ↔
-      Backend (Java/Node)
-          ↔ DB</code></pre>
+                <p><strong>Qué es:</strong> Cliente (UI/lógica) y Servidor (datos/reglas) comunicándose vía API. Browser/Mobile App ↔ REST API ↔ Backend (Java/Node) ↔ DB.</p>
                 <p><strong>Empresas:</strong> Gmail (SPA), Facebook, Airbnb (todo basado en APIs).</p>
                 <p><strong>Ventajas:</strong> Frontend y backend desacoplados, múltiples clientes (web, app).</p>
                 <p><strong>Desventajas:</strong> Más tráfico de red, lógica duplicada posible.</p>
@@ -150,13 +125,7 @@ Data Layer          (Repositories, Queries)</code></pre>
 
             <section>
                 <h3>5. Estilo Microservicios</h3>
-                <p><strong>Qué es:</strong> Múltiples servicios pequeños, independientes, comunicándose vía eventos/APIs.</p>
-                <pre style="background:#1a2f45;color:#00d4d4;padding:1.5rem;border-radius:8px;overflow-x:auto;"><code>API Gateway
-  ├─ User Service (Node)
-  ├─ Order Service (Java)
-  ├─ Payment Service (Go)
-  ├─ Notification Service (Python)
-  └─ Kafka (event bus)</code></pre>
+                <p><strong>Qué es:</strong> Múltiples servicios pequeños, independientes, comunicándose vía eventos/APIs. API Gateway con User Service, Order Service, Payment Service, Notification Service y event bus (Kafka).</p>
                 <p><strong>Empresas:</strong> Netflix, Uber, Amazon, Spotify (todos usan).</p>
                 <p><strong>Ventajas:</strong> Equipos autónomos, escala independiente, deploy frecuente.</p>
                 <p><strong>Desventajas:</strong> Complejidad operativa (containerización, orquestación, observabilidad).</p>
@@ -170,12 +139,6 @@ Data Layer          (Repositories, Queries)</code></pre>
                     <li><strong>Uber:</strong> MVC al inicio, migró a Microservicios cuando se escaló a 40+ países.</li>
                     <li><strong>Twitter:</strong> Rails (MVC) al inicio, luego polyglot con Scala, Java, Go para diferentes servicios.</li>
                 </ul>
-            </section>
-            
-            <!-- Microservices Architecture Diagram -->
-            <section style="margin:2rem 0">
-                <h3>Ejemplo Visual: Arquitectura de Microservicios</h3>
-                <img src="../assets/diagrams/microservices-architecture.svg" alt="Diagrama de Arquitectura de Microservicios" style="width:100%;max-width:600px;border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,0.25);">
             </section>
             
             <section>

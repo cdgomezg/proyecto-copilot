@@ -55,56 +55,7 @@
                 </ul>
 
                 <p style="margin-top:1.5rem"><strong>Ejemplo práctico — Servicio de Suscripciones:</strong></p>
-                <pre style="background:#f5f5f5;padding:1rem;border-radius:8px;overflow-x:auto;margin-top:0.5rem;font-size:0.85rem;"><code>// Entities (dominio puro, sin dependencias)
-class Subscription {
-    constructor(userId, plan) {
-        this.userId = userId;
-        this.plan = plan;
-        this.createdAt = new Date();
-    }
-    
-    isActive() {
-        return this.plan !== 'cancelled';
-    }
-    
-    upgradeTo(newPlan) {
-        this.plan = newPlan;
-        return true;
-    }
-}
-
-// Use Case (lógica de aplicación)
-class CreateSubscriptionUseCase {
-    constructor(subscriptionRepository, paymentGateway) {
-        this.repo = subscriptionRepository;
-        this.payment = paymentGateway;
-    }
-    
-    execute(userId, planType) {
-        const sub = new Subscription(userId, planType);
-        const charged = this.payment.charge(userId, planType);
-        if (charged) {
-            return this.repo.save(sub);
-        }
-        throw new Error('Payment failed');
-    }
-}
-
-// Interface Adapter (Controller)
-class SubscriptionController {
-    constructor(createSubUseCase) {
-        this.useCase = createSubUseCase;
-    }
-    
-    async handlePost(req, res) {
-        try {
-            const sub = this.useCase.execute(req.user.id, req.body.plan);
-            res.json({ success: true, subscription: sub });
-        } catch (e) {
-            res.status(402).json({ error: e.message });
-        }
-    }
-}</code></pre>
+                <p>Las Entities (Subscription) modelan el dominio sin dependencias externas. Use Cases orquestan la lógica de aplicación (CreateSubscriptionUseCase). Interface Adapters como SubscriptionController comunican con el mundo exterior. Framework &amp; Drivers manejan HTTP, BD y librerías.</p>
 
                 <p style="margin-top:1rem"><strong>Ventajas:</strong></p>
                 <ul style="margin-top:0.5rem;padding-left:2rem;">
@@ -135,61 +86,7 @@ class SubscriptionController {
                 </ul>
 
                 <p style="margin-top:1.5rem"><strong>Ejemplo práctico — Sistema de Notificaciones:</strong></p>
-                <pre style="background:#f5f5f5;padding:1rem;border-radius:8px;overflow-x:auto;margin-top:0.5rem;font-size:0.85rem;"><code>// Core Domain (hexágono)
-class NotificationService {
-    constructor(emailPort, smsPort, logPort) {
-        this.email = emailPort;
-        this.sms = smsPort;
-        this.log = logPort;
-    }
-    
-    sendAlert(user, message) {
-        this.log.record(`Alert sent to user ${user.id}`);
-        
-        if (user.preferEmail) {
-            return this.email.send(user.email, message);
-        } else {
-            return this.sms.send(user.phone, message);
-        }
-    }
-}
-
-// Puertos (interfaces)
-class EmailPort {
-    send(email, message) { throw new Error('Not implemented'); }
-}
-
-class SmsPort {
-    send(phone, message) { throw new Error('Not implemented'); }
-}
-
-// Adaptador Primario (HTTP API)
-class NotificationController {
-    constructor(notificationService) {
-        this.service = notificationService;
-    }
-    
-    async handleAlert(req, res) {
-        const result = this.service.sendAlert(req.user, req.body.message);
-        res.json({ sent: result });
-    }
-}
-
-// Adaptador Secundario (Email via SendGrid)
-class SendGridEmailAdapter extends EmailPort {
-    send(email, message) {
-        // Integración específica con SendGrid
-        return sgMail.send({ to: email, text: message });
-    }
-}
-
-// Adaptador Secundario (SMS via Twilio)
-class TwilioSmsAdapter extends SmsPort {
-    send(phone, message) {
-        // Integración específica con Twilio
-        return twilio.messages.create({ to: phone, body: message });
-    }
-}</code></pre>
+                <p>El Domain Core (NotificationService) es puro. Los Puertos (EmailPort, SmsPort) definen las interfaces. Los Adaptadores (SendGridEmailAdapter, TwilioSmsAdapter) implementan las integraciones concretas. El HTTP Controller es un adaptador primario.</p>
 
                 <p style="margin-top:1rem"><strong>Ventajas:</strong></p>
                 <ul style="margin-top:0.5rem;padding-left:2rem;">
@@ -220,82 +117,7 @@ class TwilioSmsAdapter extends SmsPort {
                 </ul>
 
                 <p style="margin-top:1.5rem"><strong>Ejemplo práctico — E-commerce con millones de visualizaciones:</strong></p>
-                <pre style="background:#f5f5f5;padding:1rem;border-radius:8px;overflow-x:auto;margin-top:0.5rem;font-size:0.85rem;"><code>// Command Model (Escritura)
-class ProductCommandService {
-    async updateInventory(productId, quantityChange) {
-        // Validar stock disponible
-        const product = await this.mainDb.getProduct(productId);
-        if (product.stock + quantityChange &lt; 0) {
-            throw new Error('Insufficient stock');
-        }
-        
-        // Persistir cambio
-        await this.mainDb.updateStock(productId, quantityChange);
-        
-        // Disparar evento
-        this.eventBus.publish('InventoryChanged', {
-            productId,
-            oldStock: product.stock,
-            newStock: product.stock + quantityChange
-        });
-        
-        return true;
-    }
-}
-
-// Event Handler (Proyección a modelo de lectura)
-class InventoryProjection {
-    constructor(elasticsearchDb) {
-        this.es = elasticsearchDb;
-        // Suscribirse a eventos
-        this.eventBus.on('InventoryChanged', this.onInventoryChanged.bind(this));
-    }
-    
-    async onInventoryChanged(event) {
-        // Actualizar índice Elasticsearch con stock actualizado
-        await this.es.index({
-            id: event.productId,
-            doc: { stock: event.newStock, updatedAt: new Date() }
-        });
-    }
-}
-
-// Query Model (Lectura)
-class ProductQueryService {
-    constructor(elasticsearchDb) {
-        this.es = elasticsearchDb;
-    }
-    
-    async getProductWithStock(productId) {
-        // Leer desde Elasticsearch (super rápido)
-        return await this.es.get(productId);
-    }
-    
-    async searchProducts(filter) {
-        // Búsqueda completa en Elasticsearch
-        return await this.es.search(filter);
-    }
-}
-
-// API Controllers
-class ProductController {
-    constructor(commandService, queryService) {
-        this.command = commandService;
-        this.query = queryService;
-    }
-    
-    // Endpoint de lectura (Query) → Elasticsearch
-    async getProduct(req, res) {
-        const product = await this.query.getProductWithStock(req.params.id);
-        res.json(product);
-    }
-    
-    // Endpoint de escritura (Command) → BD principal + eventos
-    async updateStock(req, res) {
-        await this.command.updateInventory(req.params.id, req.body.change);
-        res.json({ success: true });
-    }
-}</code></pre>
+                <p>ProductCommandService maneja escrituras: valida stock, persiste cambios, dispara eventos. InventoryProjection escucha eventos y actualiza índices en Elasticsearch. ProductQueryService lee desde Elasticsearch (ultra-rápido). ProductController separa endpoints: getProduct usa Query (Elasticsearch), updateStock usa Command (BD principal + eventos).</p>
 
                 <p style="margin-top:1rem"><strong>Ventajas:</strong></p>
                 <ul style="margin-top:0.5rem;padding-left:2rem;">
